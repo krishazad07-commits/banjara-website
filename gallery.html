@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gallery — Banjara Fine Dining | Food, Interiors & Events</title>
+  <meta name="description" content="Explore Banjara's gallery — stunning food photography, elegant restaurant interiors, and memorable event moments from Ahmedabad's premium fine dining destination.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Cinzel:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .gallery-section { padding: 80px 60px 100px; max-width: 1440px; margin: 0 auto; }
+
+    .filter-bar {
+      display: flex;
+      gap: 0;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 56px;
+    }
+
+    .masonry { columns: 3; column-gap: 10px; }
+    .masonry-item {
+      break-inside: avoid;
+      margin-bottom: 10px;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+    }
+    .masonry-item img {
+      width: 100%;
+      display: block;
+      transition: transform 0.55s ease;
+    }
+    .masonry-item:hover img { transform: scale(1.06); }
+    .masonry-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(15,15,15,0.6);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      opacity: 0;
+      transition: opacity 0.35s ease;
+    }
+    .masonry-item:hover .masonry-overlay { opacity: 1; }
+    .masonry-item.hide { display: none; }
+
+    /* Lightbox */
+    #lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(8,8,8,0.96);
+      z-index: 9000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.35s ease, visibility 0.35s ease;
+    }
+    #lightbox.open { opacity: 1; visibility: visible; }
+    #lightbox img {
+      max-width: 90vw;
+      max-height: 88vh;
+      object-fit: contain;
+      box-shadow: 0 0 80px rgba(0,0,0,0.8);
+    }
+    .lb-close {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      width: 48px;
+      height: 48px;
+      border: 1px solid rgba(201,169,110,0.3);
+      background: transparent;
+      color: var(--gold);
+      font-size: 18px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s;
+    }
+    .lb-close:hover { background: rgba(201,169,110,0.1); border-color: var(--gold); }
+    .lb-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 52px;
+      height: 52px;
+      border: 1px solid rgba(201,169,110,0.3);
+      background: transparent;
+      color: var(--gold);
+      font-size: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s;
+    }
+    .lb-nav:hover { background: rgba(201,169,110,0.1); border-color: var(--gold); }
+    #lb-prev { left: 24px; }
+    #lb-next { right: 24px; }
+    #lb-caption {
+      position: absolute;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+    }
+
+    @media (max-width: 900px) {
+      .masonry { columns: 2; }
+      .gallery-section { padding: 60px 32px 80px; }
+    }
+    @media (max-width: 560px) {
+      .masonry { columns: 1; }
+      .gallery-section { padding: 48px 16px 60px; }
+      #lb-prev { left: 8px; }
+      #lb-next { right: 8px; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="loading-screen">
+  <div class="loader-wrapper"><div class="loader-ring"></div><div class="loader-inner"></div></div>
+  <div class="font-cinzel gold-text" style="font-size: 26px; letter-spacing: 10px;">Banjara</div>
+  <div class="font-cormorant" style="color: rgba(201,169,110,0.5); font-size: 13px; letter-spacing: 6px; text-transform: uppercase; margin-top: 6px;">Gallery</div>
+</div>
+
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="index.html" style="text-decoration:none;">
+      <div class="nav-logo-name">Banjara</div>
+      <div class="nav-logo-sub">Fine Dining Buffet</div>
+    </a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="about.html" class="nav-link">About</a>
+      <a href="menu.html" class="nav-link">Menu</a>
+      <a href="gallery.html" class="nav-link active">Gallery</a>
+      <a href="contact.html" class="nav-link">Contact</a>
+      <a href="reservation.html" class="btn-gold" style="margin-left:8px;">Reserve</a>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div id="mobile-menu">
+  <button class="mobile-close" id="mobile-close"><i class="fas fa-times"></i></button>
+  <div class="font-cinzel gold-text" style="font-size: 24px; letter-spacing: 8px; margin-bottom: 16px;">Banjara</div>
+  <div class="divider" style="width: 160px; margin: 0 auto 24px;"><span class="divider-icon">◆</span></div>
+  <a href="index.html" class="mobile-nav-link">Home</a>
+  <a href="about.html" class="mobile-nav-link">About</a>
+  <a href="menu.html" class="mobile-nav-link">Menu</a>
+  <a href="gallery.html" class="mobile-nav-link active">Gallery</a>
+  <a href="contact.html" class="mobile-nav-link">Contact</a>
+  <a href="reservation.html" class="btn-gold" style="margin-top: 8px;">Reserve a Table</a>
+</div>
+
+<!-- PAGE HERO -->
+<div class="page-hero" style="padding-top: 80px;">
+  <div class="page-hero-bg" style="background-image: url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1920&q=80');"></div>
+  <div class="page-hero-overlay"></div>
+  <div class="page-hero-content">
+    <div class="section-label" style="animation: fadeInUp 0.8s ease both;">Visual Journey</div>
+    <h1 class="section-title" style="font-size: clamp(2.2rem, 5vw, 4.2rem); animation: fadeInUp 0.8s ease 0.15s both;">Our <em>Gallery</em></h1>
+    <div class="divider" style="justify-content: center; animation: fadeInUp 0.8s ease 0.3s both;"><span class="divider-icon">◆</span></div>
+    <p style="color: var(--cream-dim); font-size: 1.05rem; max-width: 460px; margin: 0 auto; animation: fadeInUp 0.8s ease 0.45s both;">A glimpse into the Banjara experience — food, ambience, and memories</p>
+  </div>
+</div>
+
+<!-- GALLERY -->
+<div class="gallery-section">
+
+  <!-- Filter Bar -->
+  <div class="filter-bar reveal">
+    <button class="gallery-filter active" onclick="filterGallery('all', this)">All</button>
+    <button class="gallery-filter" onclick="filterGallery('food', this)">Food</button>
+    <button class="gallery-filter" onclick="filterGallery('interior', this)">Interior</button>
+    <button class="gallery-filter" onclick="filterGallery('events', this)">Events</button>
+  </div>
+
+  <!-- Count indicator -->
+  <div style="text-align: center; margin-bottom: 40px;" class="reveal">
+    <span id="count-label" class="font-cinzel" style="font-size: 9px; letter-spacing: 4px; color: rgba(201,169,110,0.5);">SHOWING ALL PHOTOS</span>
+  </div>
+
+  <!-- Masonry Grid -->
+  <div class="masonry reveal" id="gallery-grid">
+
+    <!-- FOOD -->
+    <div class="masonry-item" data-cat="food" onclick="openLightbox(0)">
+      <img src="images/rose-kheer.jpg" alt="Rose Kheer — Banjara Signature Dessert" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1551024601-bec78aea704b?w=600&q=80'">
+      <div class="masonry-overlay">
+        <i class="fas fa-search-plus" style="color:var(--gold);font-size:22px;"></i>
+        <div class="font-cinzel" style="font-size:8px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;">Rose Kheer</div>
+      </div>
+    </div>
+
+    <div class="masonry-item" data-cat="interior" onclick="openLightbox(1)">
+      <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=600&q=80" alt="Banjara Main Dining Hall" loading="lazy">
+      <div class="masonry-overlay">
+        <i class="fas fa-search-plus" style="color:var(--gold);font-size:22px;"></i>
+        <div class="font-cinzel" style="font-size:8px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;">Main Dining Hall</div>
+      </div>
+    </div>
+
+    <div class="masonry-item" data-cat="food" onclick="openLightbox(2)">
+      <img src="images/curry-bowl.jpg" alt="Signature Curry in Gold Bowl" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1574484284002-952d92a03a52?w=600&q=80'">
+      <div class="masonry-overlay">
+        <i class="fas fa-search-plus" style="color:var(--gold);font-size:22px;"></i>
+        <div class="font-cinzel" style="font-size:8px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;">Signature Curry</div>
+      </div>
+    </div>
+
+    <div class="masonry-item" data-cat="events" onclick="openLightbox(3)">
+      <img src="https://images.unsplash.com/photo-1424847651672-bf20a4b0982b?w=600&q=80" alt="Corporate Dinner Event" loading="lazy">
+      <div class="masonry-overlay">
+        <i class="fas fa-search-plus" style="color:var(--gold);font-size:22px;"></i>
+        <div class="font-cinzel" style="font-size:8px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;">Corporate Event</div>
+      </div>
+    </div>
+
+    <div class="masonry-item" data-cat="food" onclick="openLightbox(4)">
+      <img src="images/pancakes.jpg" alt="Artisan Pancakes" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=600&q=80'">
+      <div class="masonry-overlay">
+        <i class="fas fa-search-plus" style="color:var(--gold);font-size:22px;"></i>
+        <div class="font-cinzel" style="font-size:8px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;">Artisan Pancakes</div>
+      </div>
+    </div>
+
+    <div class="masonry-item" data-cat="interior" onclick="openLightbox(5)">
+      <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=80" alt="Banjara Dining Ambience" loading="lazy">
+      <div class="masonry-overlay">
+        <i class="fas fa-search-plus" style="color:var(--gold);font-size:22px;"></i>
+        <div class="font-cinzel" style="font-size:8px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;">Dining Ambience</div>
+      </div>
+    </div>
+
+    <div class="masonry-item" data-cat="food" onclick="openLightbox(6)">
+      <img src="images/tacos-chaat.jpg" alt="Mini Tacos & Chaat Bites" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600&q=80'">
+      <div class="masonry-overlay">
+        <i class="fas fa-search-plus" style="color:var(--gold);font-size:22px;"></i>
+        <div class="font-cinzel" style="font-size:8px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;">Chaat Bites</div>
+      </div>
+    </div>
+
+    <div class="masonry-item" data-cat="interior" onclick="openLightbox(7)">
+      <img src="images/kitchen.jpg" alt="Banjara Open Kitchen" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=600&q=80'">
+      <div class="masonry-overlay">
+        <i class="fas fa-search-plus" style="color:var(--gold);font-size:22px;"></i>
+        <div class="font-cinzel" style="font-size:8px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;">Open Kitchen</div>
+      </div>
+    </div>
+
+    <div class="masonry-item" data-cat="events" onclick="openLightbox(8)">
+      <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600&q=80" alt="Private Dining Event" loading="lazy">
+      <div class="masonry-overlay">
+        <i class="fas fa-search-plus" style="color:var(--gold);font-size:22px;"></i>
+        <div class="font-cinzel" style="font-size:8px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;">Private Dining</div>
+      </div>
+    </div>
+
+    <div class="masonry-item" data-cat="food" onclick="openLightbox(9)">
+      <img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=600&q=80" alt="Charcoal Grill Station" loading="lazy">
+      <div class="masonry-overlay">
+        <i class="fas fa-search-plus" style="color:var(--gold);font-size:22px;"></i>
+        <div class="font-cinzel" style="font-size:8px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;">Grill Station</div>
+      </div>
+    </div>
+
+    <div class="masonry-item" data-cat="interior" onclick="openLightbox(10)">
+      <img src="https://images.unsplash.com/photo-1559329007-7e0ee57f4a8c?w=600&q=80" alt="Lounge Area" loading="lazy">
+      <div class="masonry-overlay">
+        <i class="fas fa-search-plus" style="color:var(--gold);font-size:22px;"></i>
+        <div class="font-cinzel" style="font-size:8px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;">Lounge Area</div>
+      </div>
+    </div>
+
+    <div class="masonry-item" data-cat="food" onclick="openLightbox(11)">
+      <img src="https://images.unsplash.com/photo-1551024601-bec78aea704b?w=600&q=80" alt="Patisserie Selection" loading="lazy">
+      <div class="masonry-overlay">
+        <i class="fas fa-search-plus" style="color:var(--gold);font-size:22px;"></i>
+        <div class="font-cinzel" style="font-size:8px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;">Patisserie</div>
+      </div>
+    </div>
+
+    <div class="masonry-item" data-cat="events" onclick="openLightbox(12)">
+      <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&q=80" alt="Festive Buffet Spread" loading="lazy">
+      <div class="masonry-overlay">
+        <i class="fas fa-search-plus" style="color:var(--gold);font-size:22px;"></i>
+        <div class="font-cinzel" style="font-size:8px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;">Festive Spread</div>
+      </div>
+    </div>
+
+    <div class="masonry-item" data-cat="food" onclick="openLightbox(13)">
+      <img src="https://images.unsplash.com/photo-1482049016688-2d3e1b311543?w=600&q=80" alt="Chef's Plated Creation" loading="lazy">
+      <div class="masonry-overlay">
+        <i class="fas fa-search-plus" style="color:var(--gold);font-size:22px;"></i>
+        <div class="font-cinzel" style="font-size:8px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;">Chef's Creation</div>
+      </div>
+    </div>
+
+    <div class="masonry-item" data-cat="interior" onclick="openLightbox(14)">
+      <img src="https://images.unsplash.com/photo-1424847651672-bf20a4b0982b?w=600&q=80" alt="Fine Dining Table Setting" loading="lazy">
+      <div class="masonry-overlay">
+        <i class="fas fa-search-plus" style="color:var(--gold);font-size:22px;"></i>
+        <div class="font-cinzel" style="font-size:8px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;">Table Setting</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Instagram CTA -->
+  <div style="text-align: center; margin-top: 72px; padding: 60px 40px; border: 1px solid var(--border);" class="reveal">
+    <div class="section-label">Follow Our Journey</div>
+    <h3 class="font-playfair" style="font-size: 1.8rem; color: var(--cream); margin-bottom: 12px;">Share Your <em>Banjara Moments</em></h3>
+    <p style="color: var(--cream-dim); margin-bottom: 28px; font-size: 1rem;">Tag us on Instagram and be part of our community of food lovers.</p>
+    <a href="#" class="btn-gold"><i class="fab fa-instagram"></i> &nbsp;@BanjaraFineDining</a>
+  </div>
+</div>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" onclick="closeLightboxBg(event)">
+  <button class="lb-close" onclick="closeLightbox()"><i class="fas fa-times"></i></button>
+  <button class="lb-nav" id="lb-prev" onclick="lbNav(-1)"><i class="fas fa-arrow-left"></i></button>
+  <img id="lb-img" src="" alt="">
+  <button class="lb-nav" id="lb-next" onclick="lbNav(1)"><i class="fas fa-arrow-right"></i></button>
+  <div id="lb-caption">
+    <div class="font-cinzel" style="font-size: 9px; letter-spacing: 4px; color: rgba(201,169,110,0.6); text-transform: uppercase;" id="lb-cap-text"></div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="nav-logo-name" style="margin-bottom: 4px;">Banjara</div>
+      <div class="nav-logo-sub" style="margin-bottom: 24px;">Fine Dining Buffet</div>
+      <p style="color: rgba(245,245,245,0.38); font-size: 0.92rem; line-height: 1.9; max-width: 290px;">A premium dining destination where global flavours meet timeless elegance.</p>
+      <div style="display: flex; gap: 12px; margin-top: 28px;">
+        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="social-icon"><i class="fab fa-google"></i></a>
+        <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+      </div>
+    </div>
+    <div>
+      <div class="section-label" style="margin-bottom: 20px;">Navigate</div>
+      <div style="display: flex; flex-direction: column; gap: 13px;">
+        <a href="index.html" class="footer-link">Home</a>
+        <a href="about.html" class="footer-link">About Us</a>
+        <a href="menu.html" class="footer-link">Our Menu</a>
+        <a href="gallery.html" class="footer-link">Gallery</a>
+        <a href="reservation.html" class="footer-link">Reservations</a>
+        <a href="contact.html" class="footer-link">Contact</a>
+      </div>
+    </div>
+    <div>
+      <div class="section-label" style="margin-bottom: 20px;">Hours</div>
+      <div style="display: flex; flex-direction: column; gap: 16px; color: rgba(245,245,245,0.42); font-size: 0.9rem; line-height: 1.7;">
+        <div><div style="color: rgba(245,245,245,0.65); margin-bottom: 3px;">Mon – Fri</div><div>12:00 PM – 3:30 PM</div><div>7:00 PM – 11:00 PM</div></div>
+        <div><div style="color: rgba(245,245,245,0.65); margin-bottom: 3px;">Sat – Sun</div><div>12:00 PM – 4:00 PM</div><div>7:00 PM – 11:30 PM</div></div>
+      </div>
+    </div>
+    <div>
+      <div class="section-label" style="margin-bottom: 20px;">Contact</div>
+      <div style="display: flex; flex-direction: column; gap: 16px; color: rgba(245,245,245,0.42); font-size: 0.9rem;">
+        <div style="display: flex; gap: 13px; align-items: flex-start;"><i class="fas fa-map-marker-alt" style="color: var(--gold); font-size: 13px; margin-top: 3px;"></i><span>SG Highway, Ahmedabad,<br>Gujarat – 380054</span></div>
+        <div style="display: flex; gap: 13px; align-items: center;"><i class="fas fa-phone" style="color: var(--gold); font-size: 13px;"></i><span>+91 98765 43210</span></div>
+        <div style="display: flex; gap: 13px; align-items: center;"><i class="fas fa-envelope" style="color: var(--gold); font-size: 13px;"></i><span>dine@banjara.in</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div style="color: rgba(245,245,245,0.25); font-size: 0.85rem;">© 2024 Banjara Fine Dining. All rights reserved.</div>
+    <div class="font-cinzel" style="font-size: 8px; letter-spacing: 4px; color: rgba(201,169,110,0.35); text-transform: uppercase;">Crafted with Excellence · Ahmedabad</div>
+  </div>
+</footer>
+
+<a href="reservation.html" id="floating-btn" class="btn-gold"><i class="far fa-calendar-alt"></i> Book Now</a>
+
+<script>
+  window.addEventListener('load', () => setTimeout(() => document.getElementById('loading-screen').classList.add('hidden'), 1200));
+  window.addEventListener('scroll', () => document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 60));
+  document.getElementById('hamburger').addEventListener('click', function() { this.classList.toggle('open'); document.getElementById('mobile-menu').classList.add('open'); });
+  document.getElementById('mobile-close').addEventListener('click', () => { document.getElementById('hamburger').classList.remove('open'); document.getElementById('mobile-menu').classList.remove('open'); });
+  const ro = new IntersectionObserver(e => e.forEach(x => { if (x.isIntersecting) { x.target.classList.add('visible'); ro.unobserve(x.target); }}), { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+
+  // Gallery filter
+  function filterGallery(cat, btn) {
+    document.querySelectorAll('.gallery-filter').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const items = document.querySelectorAll('.masonry-item');
+    let shown = 0;
+    items.forEach(item => {
+      if (cat === 'all' || item.dataset.cat === cat) {
+        item.classList.remove('hide');
+        shown++;
+      } else {
+        item.classList.add('hide');
+      }
+    });
+    const labels = { all: 'ALL PHOTOS', food: 'FOOD', interior: 'INTERIOR', events: 'EVENTS' };
+    document.getElementById('count-label').textContent = `SHOWING ${shown} ${labels[cat]} PHOTO${shown !== 1 ? 'S' : ''}`;
+  }
+
+  // Lightbox
+  const items = document.querySelectorAll('.masonry-item');
+  let currentLb = 0;
+  let visibleItems = [];
+
+  function openLightbox(idx) {
+    visibleItems = Array.from(items).filter(i => !i.classList.contains('hide'));
+    currentLb = visibleItems.findIndex(i => i === items[idx]);
+    if (currentLb === -1) currentLb = 0;
+    showLb();
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function showLb() {
+    const item = visibleItems[currentLb];
+    const img = item.querySelector('img');
+    const cap = item.querySelector('.masonry-overlay div');
+    document.getElementById('lb-img').src = img.src;
+    document.getElementById('lb-img').alt = img.alt;
+    document.getElementById('lb-cap-text').textContent = cap ? cap.textContent : '';
+  }
+
+  function lbNav(dir) {
+    currentLb = (currentLb + dir + visibleItems.length) % visibleItems.length;
+    showLb();
+  }
+
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function closeLightboxBg(e) {
+    if (e.target === document.getElementById('lightbox')) closeLightbox();
+  }
+
+  // Keyboard navigation
+  document.addEventListener('keydown', e => {
+    if (!document.getElementById('lightbox').classList.contains('open')) return;
+    if (e.key === 'ArrowLeft') lbNav(-1);
+    if (e.key === 'ArrowRight') lbNav(1);
+    if (e.key === 'Escape') closeLightbox();
+  });
+</script>
+</body>
+</html>

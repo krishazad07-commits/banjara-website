@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reserve a Table — Banjara Fine Dining</title>
+  <meta name="description" content="Reserve your table at Banjara, Ahmedabad's premium fine dining buffet. Book online for lunch or dinner — for couples, families, and corporate events.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Cinzel:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .reservation-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      min-height: 100vh;
+    }
+
+    /* Left panel — info side */
+    .res-info-panel {
+      position: relative;
+      overflow: hidden;
+    }
+    .res-info-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1200&q=80');
+      background-size: cover;
+      background-position: center;
+    }
+    .res-info-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(10,10,10,0.55) 0%, rgba(10,10,10,0.85) 100%);
+    }
+    .res-info-content {
+      position: relative;
+      z-index: 2;
+      padding: 120px 56px 80px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .info-card {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      padding: 22px 0;
+      border-bottom: 1px solid rgba(201,169,110,0.15);
+    }
+    .info-card:last-child { border-bottom: none; }
+    .info-icon {
+      width: 44px;
+      height: 44px;
+      border: 1px solid rgba(201,169,110,0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold);
+      font-size: 15px;
+      flex-shrink: 0;
+    }
+
+    /* Right panel — form side */
+    .res-form-panel {
+      background: var(--charcoal);
+      padding: 120px 64px 80px;
+      overflow-y: auto;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .form-grid { display: flex; flex-direction: column; gap: 22px; }
+
+    /* Occasion tabs */
+    .occasion-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+    .occasion-btn {
+      padding: 12px 8px;
+      background: transparent;
+      border: 1px solid rgba(201,169,110,0.2);
+      color: rgba(245,245,245,0.5);
+      font-family: 'Cinzel', serif;
+      font-size: 8px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-align: center;
+    }
+    .occasion-btn:hover,
+    .occasion-btn.selected {
+      background: rgba(201,169,110,0.08);
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    /* Step indicator */
+    .steps {
+      display: flex;
+      gap: 0;
+      margin-bottom: 48px;
+    }
+    .step {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      position: relative;
+    }
+    .step::after {
+      content: '';
+      position: absolute;
+      top: 16px;
+      left: 50%;
+      width: 100%;
+      height: 1px;
+      background: rgba(201,169,110,0.2);
+    }
+    .step:last-child::after { display: none; }
+    .step-circle {
+      width: 32px;
+      height: 32px;
+      border: 1px solid rgba(201,169,110,0.3);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Cinzel', serif;
+      font-size: 11px;
+      color: rgba(245,245,245,0.4);
+      background: var(--charcoal);
+      position: relative;
+      z-index: 1;
+      transition: all 0.3s;
+    }
+    .step.active .step-circle {
+      border-color: var(--gold);
+      color: var(--gold);
+      background: rgba(201,169,110,0.08);
+    }
+    .step.done .step-circle {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: var(--black);
+    }
+    .step-label {
+      font-family: 'Cinzel', serif;
+      font-size: 8px;
+      letter-spacing: 2px;
+      color: rgba(245,245,245,0.35);
+      text-transform: uppercase;
+      text-align: center;
+    }
+    .step.active .step-label { color: var(--gold); }
+
+    /* Success state */
+    .confirmation-box {
+      display: none;
+      text-align: center;
+      padding: 60px 32px;
+    }
+    .confirmation-box.visible { display: block; }
+    .confirm-icon {
+      width: 80px;
+      height: 80px;
+      border: 1px solid var(--gold);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 28px;
+      font-size: 28px;
+      color: var(--gold);
+    }
+
+    @media (max-width: 1000px) {
+      .reservation-wrapper { grid-template-columns: 1fr; }
+      .res-info-panel { min-height: 360px; }
+      .res-info-content { padding: 100px 32px 48px; }
+      .res-form-panel { padding: 60px 32px; }
+    }
+    @media (max-width: 560px) {
+      .form-row { grid-template-columns: 1fr; }
+      .occasion-grid { grid-template-columns: repeat(2, 1fr); }
+      .res-form-panel { padding: 48px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="loading-screen">
+  <div class="loader-wrapper"><div class="loader-ring"></div><div class="loader-inner"></div></div>
+  <div class="font-cinzel gold-text" style="font-size: 26px; letter-spacing: 10px;">Banjara</div>
+  <div class="font-cormorant" style="color: rgba(201,169,110,0.5); font-size: 13px; letter-spacing: 6px; text-transform: uppercase; margin-top: 6px;">Reserve</div>
+</div>
+
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="index.html" style="text-decoration:none;">
+      <div class="nav-logo-name">Banjara</div>
+      <div class="nav-logo-sub">Fine Dining Buffet</div>
+    </a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="about.html" class="nav-link">About</a>
+      <a href="menu.html" class="nav-link">Menu</a>
+      <a href="gallery.html" class="nav-link">Gallery</a>
+      <a href="contact.html" class="nav-link">Contact</a>
+      <a href="reservation.html" class="btn-gold active" style="margin-left:8px;">Reserve</a>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div id="mobile-menu">
+  <button class="mobile-close" id="mobile-close"><i class="fas fa-times"></i></button>
+  <div class="font-cinzel gold-text" style="font-size: 24px; letter-spacing: 8px; margin-bottom: 16px;">Banjara</div>
+  <div class="divider" style="width: 160px; margin: 0 auto 24px;"><span class="divider-icon">◆</span></div>
+  <a href="index.html" class="mobile-nav-link">Home</a>
+  <a href="about.html" class="mobile-nav-link">About</a>
+  <a href="menu.html" class="mobile-nav-link">Menu</a>
+  <a href="gallery.html" class="mobile-nav-link">Gallery</a>
+  <a href="contact.html" class="mobile-nav-link">Contact</a>
+  <a href="reservation.html" class="btn-gold" style="margin-top: 8px;">Reserve a Table</a>
+</div>
+
+<!-- RESERVATION LAYOUT -->
+<div class="reservation-wrapper" style="padding-top: 80px;">
+
+  <!-- LEFT — Info Panel -->
+  <div class="res-info-panel">
+    <div class="res-info-bg"></div>
+    <div class="res-info-overlay"></div>
+    <div class="res-info-content">
+      <div>
+        <div class="section-label">Book Your Experience</div>
+        <h1 class="font-playfair" style="font-size: clamp(1.8rem, 3vw, 2.8rem); color: var(--cream); line-height: 1.2; margin-bottom: 12px;">Reserve Your<br><em style="color: var(--gold);">Table at Banjara</em></h1>
+        <div class="divider" style="margin: 20px 0;"><span class="divider-icon">◆</span></div>
+        <p style="color: var(--cream-dim); line-height: 1.9; font-size: 1rem; max-width: 380px;">Every great evening begins with a reservation. Secure your place at Banjara and let us handle every detail — from your preferred seating to special occasion arrangements.</p>
+      </div>
+
+      <div style="margin-top: 40px;">
+        <div class="info-card">
+          <div class="info-icon"><i class="fas fa-clock"></i></div>
+          <div>
+            <div class="font-cinzel" style="font-size: 10px; color: var(--gold); letter-spacing: 3px; margin-bottom: 6px;">Lunch Service</div>
+            <div style="color: rgba(245,245,245,0.7); font-size: 0.95rem;">Mon–Fri: 12:00 PM – 3:30 PM</div>
+            <div style="color: rgba(245,245,245,0.7); font-size: 0.95rem;">Sat–Sun: 12:00 PM – 4:00 PM</div>
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="info-icon"><i class="fas fa-moon"></i></div>
+          <div>
+            <div class="font-cinzel" style="font-size: 10px; color: var(--gold); letter-spacing: 3px; margin-bottom: 6px;">Dinner Service</div>
+            <div style="color: rgba(245,245,245,0.7); font-size: 0.95rem;">Mon–Fri: 7:00 PM – 11:00 PM</div>
+            <div style="color: rgba(245,245,245,0.7); font-size: 0.95rem;">Sat–Sun: 7:00 PM – 11:30 PM</div>
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="info-icon"><i class="fas fa-phone"></i></div>
+          <div>
+            <div class="font-cinzel" style="font-size: 10px; color: var(--gold); letter-spacing: 3px; margin-bottom: 6px;">Call Us Directly</div>
+            <div style="color: rgba(245,245,245,0.7); font-size: 0.95rem;">+91 98765 43210</div>
+            <div style="color: rgba(245,245,245,0.5); font-size: 0.85rem;">For groups of 15 or more</div>
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="info-icon"><i class="fas fa-map-marker-alt"></i></div>
+          <div>
+            <div class="font-cinzel" style="font-size: 10px; color: var(--gold); letter-spacing: 3px; margin-bottom: 6px;">Find Us</div>
+            <div style="color: rgba(245,245,245,0.7); font-size: 0.95rem;">SG Highway, Ahmedabad</div>
+            <div style="color: rgba(245,245,245,0.5); font-size: 0.85rem;">Gujarat – 380054</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Decorative quote -->
+      <div style="margin-top: 48px; padding: 28px; border: 1px solid rgba(201,169,110,0.15); background: rgba(201,169,110,0.03);">
+        <p class="font-playfair" style="font-size: 1rem; color: rgba(245,245,245,0.65); font-style: italic; line-height: 1.85;">
+          "The secret of Banjara is simple — we treat every reservation as if it is the most important one of the evening."
+        </p>
+        <div class="font-cinzel" style="font-size: 9px; color: var(--gold); letter-spacing: 3px; margin-top: 12px;">— Head of Hospitality</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT — Form Panel -->
+  <div class="res-form-panel">
+
+    <!-- Step indicator -->
+    <div class="steps" style="margin-bottom: 48px;">
+      <div class="step active" id="step1-indicator">
+        <div class="step-circle">1</div>
+        <div class="step-label">Details</div>
+      </div>
+      <div class="step" id="step2-indicator">
+        <div class="step-circle">2</div>
+        <div class="step-label">Date & Time</div>
+      </div>
+      <div class="step" id="step3-indicator">
+        <div class="step-circle">3</div>
+        <div class="step-label">Confirm</div>
+      </div>
+    </div>
+
+    <!-- FORM -->
+    <form id="reservation-form" onsubmit="submitForm(event)" novalidate>
+      <div class="form-grid">
+
+        <!-- Personal Details -->
+        <div style="margin-bottom: 8px;">
+          <div class="font-playfair" style="font-size: 1.4rem; color: var(--cream); margin-bottom: 4px;">Your <em>Details</em></div>
+          <div style="width: 40px; height: 1px; background: var(--gold); margin-bottom: 20px;"></div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">First Name *</label>
+            <input type="text" class="form-control" placeholder="Arjun" required id="fname">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Last Name *</label>
+            <input type="text" class="form-control" placeholder="Mehta" required id="lname">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Email Address *</label>
+          <input type="email" class="form-control" placeholder="arjun@example.com" required id="email">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Phone Number *</label>
+          <input type="tel" class="form-control" placeholder="+91 98765 43210" required id="phone">
+        </div>
+
+        <!-- Divider -->
+        <div class="divider" style="margin: 8px 0;"><span class="divider-icon">◆</span></div>
+
+        <!-- Booking Details -->
+        <div style="margin-bottom: 8px;">
+          <div class="font-playfair" style="font-size: 1.4rem; color: var(--cream); margin-bottom: 4px;">Date & <em>Time</em></div>
+          <div style="width: 40px; height: 1px; background: var(--gold); margin-bottom: 20px;"></div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Date *</label>
+            <input type="date" class="form-control" required id="res-date">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Preferred Time *</label>
+            <select class="form-control" required id="res-time">
+              <option value="" disabled selected>Select time</option>
+              <optgroup label="Lunch">
+                <option>12:00 PM</option>
+                <option>12:30 PM</option>
+                <option>1:00 PM</option>
+                <option>1:30 PM</option>
+                <option>2:00 PM</option>
+                <option>2:30 PM</option>
+                <option>3:00 PM</option>
+              </optgroup>
+              <optgroup label="Dinner">
+                <option>7:00 PM</option>
+                <option>7:30 PM</option>
+                <option>8:00 PM</option>
+                <option>8:30 PM</option>
+                <option>9:00 PM</option>
+                <option>9:30 PM</option>
+                <option>10:00 PM</option>
+              </optgroup>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Number of Guests *</label>
+            <select class="form-control" required id="guests">
+              <option value="" disabled selected>Select guests</option>
+              <option>1 Guest</option>
+              <option>2 Guests</option>
+              <option>3 Guests</option>
+              <option>4 Guests</option>
+              <option>5 Guests</option>
+              <option>6 Guests</option>
+              <option>7 Guests</option>
+              <option>8 Guests</option>
+              <option>9 Guests</option>
+              <option>10 Guests</option>
+              <option>10+ Guests (Contact us)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Seating Preference</label>
+            <select class="form-control" id="seating">
+              <option value="" disabled selected>No preference</option>
+              <option>Indoor — Main Hall</option>
+              <option>Indoor — Private Alcove</option>
+              <option>Near Window</option>
+              <option>Private Dining Room</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Occasion -->
+        <div class="form-group">
+          <label class="form-label" style="margin-bottom: 12px;">Occasion</label>
+          <div class="occasion-grid">
+            <button type="button" class="occasion-btn" onclick="selectOccasion(this)"><i class="fas fa-heart" style="display:block;font-size:16px;margin-bottom:6px;"></i>Anniversary</button>
+            <button type="button" class="occasion-btn" onclick="selectOccasion(this)"><i class="fas fa-birthday-cake" style="display:block;font-size:16px;margin-bottom:6px;"></i>Birthday</button>
+            <button type="button" class="occasion-btn" onclick="selectOccasion(this)"><i class="fas fa-briefcase" style="display:block;font-size:16px;margin-bottom:6px;"></i>Corporate</button>
+            <button type="button" class="occasion-btn" onclick="selectOccasion(this)"><i class="fas fa-ring" style="display:block;font-size:16px;margin-bottom:6px;"></i>Proposal</button>
+            <button type="button" class="occasion-btn" onclick="selectOccasion(this)"><i class="fas fa-users" style="display:block;font-size:16px;margin-bottom:6px;"></i>Family</button>
+            <button type="button" class="occasion-btn" onclick="selectOccasion(this)"><i class="fas fa-utensils" style="display:block;font-size:16px;margin-bottom:6px;"></i>Casual</button>
+          </div>
+        </div>
+
+        <!-- Divider -->
+        <div class="divider" style="margin: 8px 0;"><span class="divider-icon">◆</span></div>
+
+        <!-- Special Requests -->
+        <div class="form-group">
+          <label class="form-label">Special Requests</label>
+          <textarea class="form-control" rows="4" placeholder="Dietary requirements, allergies, special arrangements, table decorations..." id="requests" style="resize: vertical; font-family: 'Cormorant Garamond', serif; font-size: 17px;"></textarea>
+        </div>
+
+        <!-- Error message -->
+        <div id="form-error" style="display:none; color: #e74c3c; font-size: 0.9rem; padding: 12px 16px; border: 1px solid rgba(231,76,60,0.3); background: rgba(231,76,60,0.05);">
+          <i class="fas fa-exclamation-circle"></i> Please fill in all required fields.
+        </div>
+
+        <!-- Submit -->
+        <button type="submit" class="btn-gold" style="width: 100%; justify-content: center; padding: 18px; font-size: 11px; letter-spacing: 4px; margin-top: 8px;">
+          <i class="far fa-calendar-check"></i> &nbsp; Confirm Reservation
+        </button>
+
+        <p style="text-align: center; color: rgba(245,245,245,0.3); font-size: 0.85rem; margin-top: 12px;">
+          <i class="fas fa-lock" style="font-size: 11px; color: var(--gold);"></i> &nbsp;Your information is safe with us. We'll confirm within 2 hours.
+        </p>
+
+      </div>
+    </form>
+
+    <!-- CONFIRMATION MESSAGE -->
+    <div class="confirmation-box" id="confirmation-box">
+      <div class="confirm-icon"><i class="fas fa-check"></i></div>
+      <div class="section-label" style="justify-content: center; margin-bottom: 16px;">Reservation Received</div>
+      <h2 class="font-playfair" style="font-size: 2rem; color: var(--cream); margin-bottom: 12px;">
+        Thank You, <em id="confirm-name" style="color: var(--gold);">Guest</em>!
+      </h2>
+      <div class="divider" style="justify-content: center; margin: 16px 0;"><span class="divider-icon">◆</span></div>
+      <p style="color: var(--cream-dim); line-height: 1.9; max-width: 420px; margin: 0 auto 8px;">
+        Your reservation at <strong style="color: var(--cream);">Banjara Fine Dining</strong> has been received. Our team will send a confirmation to your email within 2 hours.
+      </p>
+      <div id="confirm-summary" style="margin: 28px auto; max-width: 380px; background: rgba(201,169,110,0.05); border: 1px solid var(--border); padding: 24px; text-align: left;">
+        <div class="font-cinzel" style="font-size: 9px; color: var(--gold); letter-spacing: 4px; margin-bottom: 16px;">BOOKING SUMMARY</div>
+        <div id="summary-content" style="display: flex; flex-direction: column; gap: 10px; font-size: 0.92rem; color: rgba(245,245,245,0.65);"></div>
+      </div>
+      <p style="color: rgba(245,245,245,0.4); font-size: 0.88rem; margin-bottom: 28px;">For changes or queries: <a href="tel:+919876543210" style="color: var(--gold);">+91 98765 43210</a></p>
+      <a href="index.html" class="btn-outline"><i class="fas fa-home"></i> Back to Home</a>
+    </div>
+
+  </div>
+</div>
+
+<!-- Footer (slim version) -->
+<footer style="background: var(--deep); border-top: 1px solid var(--border); padding: 28px 60px;">
+  <div style="max-width: 1440px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
+    <div class="font-cinzel gold-text" style="font-size: 16px; letter-spacing: 6px;">Banjara</div>
+    <div style="color: rgba(245,245,245,0.25); font-size: 0.85rem;">© 2024 Banjara Fine Dining. All rights reserved.</div>
+    <div style="display: flex; gap: 10px;">
+      <a href="#" class="social-icon" style="width:32px;height:32px;font-size:12px;"><i class="fab fa-instagram"></i></a>
+      <a href="#" class="social-icon" style="width:32px;height:32px;font-size:12px;"><i class="fab fa-facebook-f"></i></a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  window.addEventListener('load', () => setTimeout(() => document.getElementById('loading-screen').classList.add('hidden'), 1200));
+  window.addEventListener('scroll', () => document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 60));
+  document.getElementById('hamburger').addEventListener('click', function() { this.classList.toggle('open'); document.getElementById('mobile-menu').classList.add('open'); });
+  document.getElementById('mobile-close').addEventListener('click', () => { document.getElementById('hamburger').classList.remove('open'); document.getElementById('mobile-menu').classList.remove('open'); });
+
+  // Set min date to today
+  const dateInput = document.getElementById('res-date');
+  const today = new Date().toISOString().split('T')[0];
+  dateInput.min = today;
+
+  let selectedOccasion = '';
+  function selectOccasion(btn) {
+    document.querySelectorAll('.occasion-btn').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+    selectedOccasion = btn.textContent.trim();
+  }
+
+  function submitForm(e) {
+    e.preventDefault();
+    const fname = document.getElementById('fname').value.trim();
+    const lname = document.getElementById('lname').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const date  = document.getElementById('res-date').value;
+    const time  = document.getElementById('res-time').value;
+    const guests = document.getElementById('guests').value;
+
+    if (!fname || !lname || !email || !phone || !date || !time || !guests) {
+      document.getElementById('form-error').style.display = 'block';
+      return;
+    }
+    document.getElementById('form-error').style.display = 'none';
+
+    // Update confirmation
+    document.getElementById('confirm-name').textContent = fname;
+    const summaryEl = document.getElementById('summary-content');
+    const seating = document.getElementById('seating').value || 'No preference';
+    const requests = document.getElementById('requests').value.trim();
+    summaryEl.innerHTML = `
+      <div style="display:flex;justify-content:space-between;"><span>Guest</span><span style="color:var(--cream)">${fname} ${lname}</span></div>
+      <div style="display:flex;justify-content:space-between;"><span>Date</span><span style="color:var(--cream)">${new Date(date).toDateString()}</span></div>
+      <div style="display:flex;justify-content:space-between;"><span>Time</span><span style="color:var(--cream)">${time}</span></div>
+      <div style="display:flex;justify-content:space-between;"><span>Guests</span><span style="color:var(--cream)">${guests}</span></div>
+      <div style="display:flex;justify-content:space-between;"><span>Seating</span><span style="color:var(--cream)">${seating}</span></div>
+      ${selectedOccasion ? `<div style="display:flex;justify-content:space-between;"><span>Occasion</span><span style="color:var(--cream)">${selectedOccasion}</span></div>` : ''}
+      ${requests ? `<div style="display:flex;justify-content:space-between;"><span>Requests</span><span style="color:var(--cream);max-width:180px;text-align:right">${requests}</span></div>` : ''}
+    `;
+
+    // Show confirmation
+    document.getElementById('reservation-form').style.display = 'none';
+    document.getElementById('confirmation-box').classList.add('visible');
+    document.querySelector('.steps').style.display = 'none';
+
+    // Update step indicators
+    document.querySelectorAll('.step').forEach(s => s.classList.add('done'));
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,1574 @@
+[
+  {
+    "name": "Soups",
+    "slug": "soups",
+    "sort_order": 0,
+    "items": [
+      {
+        "name": "Mr Lee's Manchow",
+        "description": "Crispy noodles, crispy vegetables",
+        "price": 375.0,
+        "is_veg": true
+      },
+      {
+        "name": "It's Hot, It's Sour",
+        "description": "Toban Tofu, Shiitake",
+        "price": 375.0,
+        "is_veg": true
+      },
+      {
+        "name": "Miso Sweet Corn Soup",
+        "description": "Bamboo & bok choy",
+        "price": 375.0,
+        "is_veg": true
+      },
+      {
+        "name": "Kashmiri Themthuk",
+        "description": "Chilli, Butter Bean, Crispy Tofu, Bread",
+        "price": 375.0,
+        "is_veg": true
+      },
+      {
+        "name": "Lemon Coriander",
+        "description": "Kalamique, Shiitake, Chilli Crunch",
+        "price": 375.0,
+        "is_veg": true
+      },
+      {
+        "name": "Asian Magic Broth",
+        "description": "Tofu, Kelp, Chilli Labneh",
+        "price": 375.0,
+        "is_veg": true
+      },
+      {
+        "name": "Roasted Tomato Basil",
+        "description": "Cheddar Crouton",
+        "price": 395.0,
+        "is_veg": true
+      },
+      {
+        "name": "Malaysian Thupka Soup",
+        "description": "Noodles, Jasmine with all hits",
+        "price": 395.0,
+        "is_veg": true
+      },
+      {
+        "name": "Brocolli Almond Cheddar",
+        "description": null,
+        "price": 395.0,
+        "is_veg": true
+      },
+      {
+        "name": "Mexican Tortilla Soup",
+        "description": "Crispy Tortilla, Peppers",
+        "price": 395.0,
+        "is_veg": true
+      },
+      {
+        "name": "Corn Palak Shorba",
+        "description": "Toasted almond quinoa",
+        "price": 395.0,
+        "is_veg": true
+      },
+      {
+        "name": "DIY Burmese Khao Suey",
+        "description": "Noodles, Crispy noodles, garnishes, thick brown gravy",
+        "price": 575.0,
+        "is_veg": true
+      }
+    ]
+  },
+  {
+    "name": "Salads",
+    "slug": "salads",
+    "sort_order": 1,
+    "items": [
+      {
+        "name": "Grilled Caesar",
+        "description": "Grilled Butter Chicken, Parmesan Dressing",
+        "price": 475.0,
+        "is_veg": false
+      },
+      {
+        "name": "Asian Crunchy Salad",
+        "description": "Crispy Noodles, Peanut Butter, Tofu",
+        "price": 475.0,
+        "is_veg": true
+      },
+      {
+        "name": "Caprese Burrata",
+        "description": "Tomatoes, sweet, Pistachio Pesto, Balsamic, Crispy Basil",
+        "price": 525.0,
+        "is_veg": true
+      },
+      {
+        "name": "Mexican Corn and Avocado",
+        "description": "Roasted Corn, Avocado, Chipotle Cheese",
+        "price": 525.0,
+        "is_veg": true
+      }
+    ]
+  },
+  {
+    "name": "Chaat Party",
+    "slug": "chaat-party",
+    "sort_order": 2,
+    "items": [
+      {
+        "name": "Chilli Passionfruit Pani Puri",
+        "description": "Passionfruit shots, khatta pani",
+        "price": 455.0,
+        "is_veg": true
+      },
+      {
+        "name": "Aloo Tikki Canvas",
+        "description": "Fresh herbs, paneer curry, dal chutneys",
+        "price": 475.0,
+        "is_veg": true
+      },
+      {
+        "name": "3 Patta Chaat",
+        "description": "Sweet, tangy, kasoori tea",
+        "price": 475.0,
+        "is_veg": true
+      },
+      {
+        "name": "Bombay Chinese Bhel",
+        "description": "Crispy noodles, schezwan chutneys",
+        "price": 475.0,
+        "is_veg": true
+      },
+      {
+        "name": "Dim-Sum Chaat",
+        "description": "Fried Dim-sums, Chutneys",
+        "price": 475.0,
+        "is_veg": true
+      },
+      {
+        "name": "Ying Yang Dahi Puri",
+        "description": "Smoked Tofu, shiitake chutneys",
+        "price": 475.0,
+        "is_veg": true
+      },
+      {
+        "name": "Layered Papdi Pullover Chaat",
+        "description": "Sweet Corn, potato, masala chutney",
+        "price": 495.0,
+        "is_veg": true
+      },
+      {
+        "name": "Mexican Chaat",
+        "description": "Crispy tortillas, anardana, chutneys",
+        "price": 495.0,
+        "is_veg": true
+      },
+      {
+        "name": "Avocado Sev Puri Platter",
+        "description": "(8 pcs)",
+        "price": 525.0,
+        "is_veg": true
+      },
+      {
+        "name": "Smoked Burrata Lotus Stem Chaat",
+        "description": "Spicy tamarind compote, anti-dhuniya sev",
+        "price": 545.0,
+        "is_veg": true
+      }
+    ]
+  },
+  {
+    "name": "Banjara Sharing Plates",
+    "slug": "banjara-sharing-plates",
+    "sort_order": 3,
+    "items": [
+      {
+        "name": "Chilli Cheese Pull Apart Bread",
+        "description": "Fresh Chilli Mozzarella, Garlic Butter, Herbs",
+        "price": 995.0,
+        "is_veg": true
+      },
+      {
+        "name": "Bruschetta Board",
+        "description": "Roasted Peppers, Cherry Tomato Relish",
+        "price": 995.0,
+        "is_veg": true
+      },
+      {
+        "name": "Hummus Board",
+        "description": "Classic hummus, Roasted Red Hummus, Fluffy Pita, Burnt Labneh",
+        "price": 995.0,
+        "is_veg": true
+      },
+      {
+        "name": "Tandoori Platter",
+        "description": "Hariyali Kebab, Calcutta Club Bharwan, Kesari Paneer Tikka, Mushroom Galouti, Cheesy Kebab",
+        "price": 1275.0,
+        "is_veg": true
+      }
+    ]
+  },
+  {
+    "name": "Indian Favourites",
+    "slug": "indian-favourites",
+    "sort_order": 4,
+    "items": [
+      {
+        "name": "Maharashtrian Kanda Bhaji",
+        "description": "Sliced Onion, Besan Batter, Chutneys",
+        "price": 495.0,
+        "is_veg": true
+      },
+      {
+        "name": "Kashmiri Nadru Monje",
+        "description": "Lotus root, jalapeno, crispy masala, hiramanth",
+        "price": 495.0,
+        "is_veg": true
+      },
+      {
+        "name": "Rajma Shami Pao",
+        "description": "Rajmah patty, mince chilli cream",
+        "price": 495.0,
+        "is_veg": true
+      },
+      {
+        "name": "Kungpao Manchurian",
+        "description": "Cottage cheese, black bean chilli, peanuts",
+        "price": 525.0,
+        "is_veg": true
+      },
+      {
+        "name": "Paan Dahi Kebab",
+        "description": "Spiced Makhanwala, mint tulsi chutney",
+        "price": 545.0,
+        "is_veg": true
+      },
+      {
+        "name": "Cheesy Hara Akhrot Kebab",
+        "description": "Herb cheese, walnuts",
+        "price": 545.0,
+        "is_veg": true
+      },
+      {
+        "name": "Railway Beetroot Outlet",
+        "description": "Classic sauce, Beetroot Patty",
+        "price": 575.0,
+        "is_veg": true
+      },
+      {
+        "name": "Makhani Shots",
+        "description": "Dal makhani, cheese minis",
+        "price": 595.0,
+        "is_veg": true
+      }
+    ]
+  },
+  {
+    "name": "International Favourites",
+    "slug": "international-favourites",
+    "sort_order": 5,
+    "items": [
+      {
+        "name": "Maggi Masala Fries",
+        "description": "Chilli garlic, schezwan mayo",
+        "price": 395.0,
+        "is_veg": true
+      },
+      {
+        "name": "Dirty Nachos",
+        "description": "Baked cheese, tomato salsa, sour cream",
+        "price": 455.0,
+        "is_veg": true
+      },
+      {
+        "name": "Mexican Cheese Bombs",
+        "description": "Jalapeño cheese, ancho chilli dip",
+        "price": 525.0,
+        "is_veg": true
+      },
+      {
+        "name": "Tiffin Potato Sliders",
+        "description": "Mini pav, aloo patty",
+        "price": 525.0,
+        "is_veg": true
+      },
+      {
+        "name": "Thai Basil Spring Rolls",
+        "description": "Sweet chilli, rice paper basil",
+        "price": 545.0,
+        "is_veg": true
+      },
+      {
+        "name": "Wok Tossed Waterchestnuts",
+        "description": "Szechuan green vegetable",
+        "price": 545.0,
+        "is_veg": true
+      },
+      {
+        "name": "Kung Pao Lotus Stem",
+        "description": "Roasted cashew, chilli-soy",
+        "price": 545.0,
+        "is_veg": true
+      },
+      {
+        "name": "Firecracker Paneer Katifi",
+        "description": "Shredded wheatgrass paste, sriracha",
+        "price": 545.0,
+        "is_veg": true
+      },
+      {
+        "name": "Sizzling Paneer Chilly",
+        "description": null,
+        "price": 545.0,
+        "is_veg": true
+      },
+      {
+        "name": "Sundried Tomato & Pesto Aranchini",
+        "description": "Semi mozzarella, mint and jalapeño dip",
+        "price": 545.0,
+        "is_veg": true
+      },
+      {
+        "name": "Salt and Pepper Vegetables",
+        "description": null,
+        "price": 545.0,
+        "is_veg": true
+      },
+      {
+        "name": "Muromachi Crispy Vegetables",
+        "description": "Stir fried batter-fried garlic",
+        "price": 545.0,
+        "is_veg": true
+      }
+    ]
+  },
+  {
+    "name": "Dimsums & Baos",
+    "slug": "dimsums-baos",
+    "sort_order": 6,
+    "items": [
+      {
+        "name": "Delhi Haat Ke Momos",
+        "description": null,
+        "price": 575.0,
+        "is_veg": true
+      },
+      {
+        "name": "Vada Bao",
+        "description": null,
+        "price": 595.0,
+        "is_veg": true
+      },
+      {
+        "name": "Cream Cheese Water Chestnut",
+        "description": null,
+        "price": 625.0,
+        "is_veg": true
+      },
+      {
+        "name": "Paneer Chilli Bao",
+        "description": null,
+        "price": 625.0,
+        "is_veg": true
+      },
+      {
+        "name": "Teriyaki Vegetable Bao",
+        "description": null,
+        "price": 625.0,
+        "is_veg": true
+      },
+      {
+        "name": "Wontons in Chilli Broth",
+        "description": null,
+        "price": 645.0,
+        "is_veg": true
+      }
+    ]
+  },
+  {
+    "name": "Tikkis & Kebabs",
+    "slug": "tikkis-kebabs",
+    "sort_order": 7,
+    "items": [
+      {
+        "name": "Dilli-6 Seekh Kebab",
+        "description": "Lamb mince, cilantro, ginger, onion",
+        "price": 595.0,
+        "is_veg": false
+      },
+      {
+        "name": "Calcutta Club Bharwan Aloo",
+        "description": "Rohan Kebab, dum-stuffed potato",
+        "price": 595.0,
+        "is_veg": true
+      },
+      {
+        "name": "Kesari Panner Tikka",
+        "description": "Saffron Marinated, Raisin Chutney, Tamarind",
+        "price": 625.0,
+        "is_veg": true
+      },
+      {
+        "name": "Amritsari Paneer Tikka",
+        "description": "Spiced yogurt marination, mint chutney",
+        "price": 625.0,
+        "is_veg": true
+      },
+      {
+        "name": "Mushroom and Cheese Galouti",
+        "description": "Shahi, porcini, spicy pineapple chutney",
+        "price": 625.0,
+        "is_veg": true
+      },
+      {
+        "name": "Awadhi Seekh Kebab",
+        "description": "Garlic, Ajwain, Saunth Ki Sabzi",
+        "price": 625.0,
+        "is_veg": true
+      },
+      {
+        "name": "Hariyali Soya Seekh",
+        "description": "Moist, Djondni, Coconut",
+        "price": 625.0,
+        "is_veg": true
+      },
+      {
+        "name": "Achari Soya Chaap",
+        "description": "Whipped Tofu, peanut chutney",
+        "price": 625.0,
+        "is_veg": true
+      },
+      {
+        "name": "Paneer Tikka Three Ways",
+        "description": "Tandoori, Malabari, Afghani, Kali Mirch; Green Apple Mint Relish",
+        "price": 645.0,
+        "is_veg": true
+      },
+      {
+        "name": "Pahadgani Paneer",
+        "description": "Green apple mint relish, masala onion",
+        "price": 645.0,
+        "is_veg": true
+      },
+      {
+        "name": "Bharwan Rajputana Paneer",
+        "description": "Nut stuffed, spicy mint chutney",
+        "price": 645.0,
+        "is_veg": true
+      },
+      {
+        "name": "Mustard Malai Brocolli",
+        "description": "Crispy garlic, pista vinaigrette, mango pickle",
+        "price": 675.0,
+        "is_veg": true
+      }
+    ]
+  },
+  {
+    "name": "Wood Fired Pizza",
+    "slug": "wood-fired-pizza",
+    "sort_order": 8,
+    "items": [
+      {
+        "name": "Cheese Overload",
+        "description": "Cheddar, cream, pizza cheese",
+        "price": 695.0,
+        "is_veg": true
+      },
+      {
+        "name": "Margherita",
+        "description": "Mozzarella, basil",
+        "price": 695.0,
+        "is_veg": true
+      },
+      {
+        "name": "Rainbow",
+        "description": "Peppers, mushrooms, olives, onions",
+        "price": 695.0,
+        "is_veg": true
+      },
+      {
+        "name": "Hot Head",
+        "description": "Ajvar, chilli, crunchy jalapeno, corn",
+        "price": 695.0,
+        "is_veg": true
+      },
+      {
+        "name": "Pesto Burrata",
+        "description": "Walnut pesto, blistered cherry tomatoes",
+        "price": 725.0,
+        "is_veg": true
+      },
+      {
+        "name": "Tandoori Paradise",
+        "description": "Paneer tikka, mushroom, capsicum, green chilli, paneer",
+        "price": 745.0,
+        "is_veg": true
+      }
+    ]
+  },
+  {
+    "name": "Sushi",
+    "slug": "sushi",
+    "sort_order": 9,
+    "items": [
+      {
+        "name": "4 Treasure Roll",
+        "description": "Carrot, Cucumber, Avo, Cream Tofu",
+        "price": 595.0,
+        "is_veg": true
+      },
+      {
+        "name": "Phily Cheese California Roll",
+        "description": "Cream Cheese, Cucumber, Crispy Chip",
+        "price": 595.0,
+        "is_veg": true
+      },
+      {
+        "name": "Spicy Avocado Roll",
+        "description": "Jalapeño, Avocado, Toasted Sesame Seeds, Furikake",
+        "price": 625.0,
+        "is_veg": true
+      },
+      {
+        "name": "Asparagus Tempura",
+        "description": "Crispy Tempura, Wasabi Aioli",
+        "price": 625.0,
+        "is_veg": true
+      }
+    ]
+  },
+  {
+    "name": "Little Mexico!!!!",
+    "slug": "little-mexico",
+    "sort_order": 10,
+    "items": [
+      {
+        "name": "Roasted Peppers and Cheese Quesadillas",
+        "description": "Red Peppers, Jack Cheese, Chipotle Cream",
+        "price": 595.0,
+        "is_veg": true
+      },
+      {
+        "name": "Mexican Hot Pot",
+        "description": "Rajma, Cheese Sauce, Crinkle Sauce",
+        "price": 625.0,
+        "is_veg": true
+      },
+      {
+        "name": "Nachos Tasting Platter",
+        "description": "Cheese, Salsa, Guac, Sour Cream, Ancho Guacamole, Sour Cream",
+        "price": 625.0,
+        "is_veg": true
+      }
+    ]
+  },
+  {
+    "name": "Pasta's & Rissoto",
+    "slug": "pasta-s-rissoto",
+    "sort_order": 11,
+    "items": [
+      {
+        "name": "Spaghetti Aglio Olio",
+        "description": "Fresh Garlic, Parsley",
+        "price": 625.0,
+        "is_veg": true
+      },
+      {
+        "name": "Alfredo Spaghetti",
+        "description": "Parma Herb Crumbles",
+        "price": 645.0,
+        "is_veg": true
+      },
+      {
+        "name": "Chilli Penne Arrabiata",
+        "description": "Tomato, Garlic, Olives",
+        "price": 645.0,
+        "is_veg": true
+      },
+      {
+        "name": "Spaghetti Rose",
+        "description": "Carbonara Cream, Crushed Tomato, Crispy Basil",
+        "price": 645.0,
+        "is_veg": true
+      },
+      {
+        "name": "Four Cheese Penne",
+        "description": "Cheddar, Parmesan, Cream Cheese, Bocconcini",
+        "price": 695.0,
+        "is_veg": true
+      },
+      {
+        "name": "Quattro Fromage Mac and Cheese",
+        "description": "Béchamel, Mozzarella, Gouda, Parmesan; Option — Pineapple",
+        "price": 695.0,
+        "is_veg": true
+      },
+      {
+        "name": "Layered Vegetable Lasagna",
+        "description": null,
+        "price": 695.0,
+        "is_veg": true
+      },
+      {
+        "name": "Cream and Saffron Rissoto",
+        "description": "Herb Crumbles, Basil",
+        "price": 725.0,
+        "is_veg": true
+      },
+      {
+        "name": "Asparagus Green Pea Rissoto",
+        "description": "Ricotta Parmesan, Crumble",
+        "price": 725.0,
+        "is_veg": true
+      },
+      {
+        "name": "Sundried Tomato Rissoto",
+        "description": "Bocconcini, Black Olives",
+        "price": 725.0,
+        "is_veg": true
+      }
+    ]
+  },
+  {
+    "name": "Sizzler's Around the World",
+    "slug": "sizzler-s-around-the-world",
+    "sort_order": 12,
+    "items": [
+      {
+        "name": "Mumbai Tawa Pulao",
+        "description": "Basmati, Street Pavs, Tawa, Fried vegetables",
+        "price": 785.0,
+        "is_veg": true
+      },
+      {
+        "name": "Oriental Hot Garlic Paneer",
+        "description": "Paneer, Rice mushrooms, stir fried vegetables",
+        "price": 825.0,
+        "is_veg": true
+      },
+      {
+        "name": "Tex Mex Pot Rice",
+        "description": "Mexican rice, Nacho, Chinese sauce, smashed cream sauce",
+        "price": 825.0,
+        "is_veg": true
+      },
+      {
+        "name": "Veg Stroganoff Sizzler",
+        "description": "Sautéed Vegetables, buttered rice",
+        "price": 825.0,
+        "is_veg": true
+      }
+    ]
+  },
+  {
+    "name": "From the Wok",
+    "slug": "from-the-wok",
+    "sort_order": 13,
+    "items": [
+      {
+        "name": "Tibetan Vegetable Stir Fry",
+        "description": "Fresh vegetables, Fresh green sauce",
+        "price": 695.0,
+        "is_veg": true
+      },
+      {
+        "name": "Cottage Cheese Shanghai",
+        "description": "Chilli peppers, fried capsicum",
+        "price": 695.0,
+        "is_veg": true
+      },
+      {
+        "name": "Classic Cottage Cheese Manchurian",
+        "description": "Yuen, celery, bean sprouts",
+        "price": 695.0,
+        "is_veg": true
+      },
+      {
+        "name": "Mapo Tofu",
+        "description": "Mala Sichuan Szechuan",
+        "price": 725.0,
+        "is_veg": true
+      },
+      {
+        "name": "Stir Fried Waterchestnut Sichaun",
+        "description": "Fried garlic, cashews",
+        "price": 725.0,
+        "is_veg": true
+      },
+      {
+        "name": "Hot Garlic Brocolli and Asparagus",
+        "description": "Fried garlic, soy, butter",
+        "price": 725.0,
+        "is_veg": true
+      },
+      {
+        "name": "Red Malaysian Curry",
+        "description": "Jasmine rice, kaffir lime",
+        "price": 725.0,
+        "is_veg": true
+      },
+      {
+        "name": "Thai Green / Red Curry",
+        "description": "Jasmine rice, kaffir lime",
+        "price": 725.0,
+        "is_veg": true
+      }
+    ]
+  },
+  {
+    "name": "Rice & Noodles",
+    "slug": "rice-noodles",
+    "sort_order": 14,
+    "items": [
+      {
+        "name": "Fire Dragon Rice",
+        "description": "Dragon, Szechuan, Smoked garlic",
+        "price": 445.0,
+        "is_veg": true
+      },
+      {
+        "name": "Burnt Garlic Fried Rice",
+        "description": "Fried garlic",
+        "price": 445.0,
+        "is_veg": true
+      },
+      {
+        "name": "Dynamite Fried Rice",
+        "description": "Crispy lao, lemongrass chilli sauce",
+        "price": 455.0,
+        "is_veg": true
+      },
+      {
+        "name": "Hong Kong Noodles",
+        "description": "Sautons, Crispy garlic",
+        "price": 455.0,
+        "is_veg": true
+      },
+      {
+        "name": "Hakka Noodles",
+        "description": "Szechuan, Crispy Garlic",
+        "price": 455.0,
+        "is_veg": true
+      },
+      {
+        "name": "Pad Thai",
+        "description": "Roasted peanut and soy peanut chilli sauce",
+        "price": 475.0,
+        "is_veg": true
+      },
+      {
+        "name": "3 Chilli Garlic Noodles",
+        "description": "Crushed peppers, crushed peanuts",
+        "price": 475.0,
+        "is_veg": true
+      },
+      {
+        "name": "Truffle Edamame Fried Rice",
+        "description": "Crispy leeks, tatsoi corn",
+        "price": 495.0,
+        "is_veg": true
+      }
+    ]
+  },
+  {
+    "name": "Khazana — Paneer Mains",
+    "slug": "khazana-paneer-mains",
+    "sort_order": 15,
+    "items": [
+      {
+        "name": "Kali Mirch Paneer Kadhai",
+        "description": "Red chillies, onion",
+        "price": 625.0,
+        "is_veg": true
+      },
+      {
+        "name": "Highway Style Paneer Bhurji",
+        "description": "Capsicum, tomatoes, green masala",
+        "price": 625.0,
+        "is_veg": true
+      },
+      {
+        "name": "Paneer Pepper Khurchan",
+        "description": "Peppers, onion",
+        "price": 645.0,
+        "is_veg": true
+      },
+      {
+        "name": "Smoked Pepper Paneer",
+        "description": null,
+        "price": 655.0,
+        "is_veg": true
+      },
+      {
+        "name": "BBQ Paneer Masala",
+        "description": "Habanero chilli oil",
+        "price": 655.0,
+        "is_veg": true
+      },
+      {
+        "name": "Hari Mirch Paneer",
+        "description": null,
+        "price": 655.0,
+        "is_veg": true
+      },
+      {
+        "name": "Sizzling Tawa Paneer",
+        "description": "Tossed peppers, drumstick masala",
+        "price": 675.0,
+        "is_veg": true
+      },
+      {
+        "name": "Paneer Pakiza",
+        "description": "Tomato Gravy, Chilli Kewda",
+        "price": 675.0,
+        "is_veg": true
+      },
+      {
+        "name": "Cottage Cheese Lababdar",
+        "description": null,
+        "price": 675.0,
+        "is_veg": true
+      },
+      {
+        "name": "Cheese Butter Masala",
+        "description": "Makhani Cream, Yogurt Oil",
+        "price": 675.0,
+        "is_veg": true
+      }
+    ]
+  },
+  {
+    "name": "Khazana — Subz Mains",
+    "slug": "khazana-subz-mains",
+    "sort_order": 16,
+    "items": [
+      {
+        "name": "Homestyle Jeera Aloo",
+        "description": "Tempered cumin",
+        "price": 595.0,
+        "is_veg": true
+      },
+      {
+        "name": "Subz Nizami Handi",
+        "description": "Cashew cashews, milk oil",
+        "price": 625.0,
+        "is_veg": true
+      },
+      {
+        "name": "Amritsari Subz Kadhai",
+        "description": "Rava onion, fried masala",
+        "price": 625.0,
+        "is_veg": true
+      },
+      {
+        "name": "Subz Lucknowi Handi",
+        "description": "Kewra, Saffron, Yogurt, Roquette",
+        "price": 625.0,
+        "is_veg": true
+      },
+      {
+        "name": "Sizzling Hyderabadi Subzi",
+        "description": "Roasted chilli, chilli oil",
+        "price": 635.0,
+        "is_veg": true
+      },
+      {
+        "name": "Himalayan Subz Handi",
+        "description": "Smoked tomato, onion paste",
+        "price": 645.0,
+        "is_veg": true
+      },
+      {
+        "name": "Exotic Vegetable Khurchan",
+        "description": "Peppers, onion, chilli oil",
+        "price": 645.0,
+        "is_veg": true
+      }
+    ]
+  },
+  {
+    "name": "Khazana — Kofta & Chaap",
+    "slug": "khazana-kofta-chaap",
+    "sort_order": 17,
+    "items": [
+      {
+        "name": "Spinach and Corn Kofta",
+        "description": "Bottle gourd, cashew cream",
+        "price": 625.0,
+        "is_veg": true
+      },
+      {
+        "name": "Bhuna Soya Chaap",
+        "description": "Bamboo stem, chilli oil",
+        "price": 625.0,
+        "is_veg": true
+      },
+      {
+        "name": "Banjara Malai Kofta",
+        "description": "Fresh garlic, makhani cream",
+        "price": 645.0,
+        "is_veg": true
+      },
+      {
+        "name": "Mini Cheese Kofta",
+        "description": "Soft, al dente",
+        "price": 645.0,
+        "is_veg": true
+      },
+      {
+        "name": "Brocolli and Corn Kofta",
+        "description": "Kurkure, desi filled garlic",
+        "price": 655.0,
+        "is_veg": true
+      }
+    ]
+  },
+  {
+    "name": "Dal & Lentils",
+    "slug": "dal-lentils",
+    "sort_order": 18,
+    "items": [
+      {
+        "name": "Dal Tadka",
+        "description": "Tarka yellow arhar",
+        "price": 595.0,
+        "is_veg": true
+      },
+      {
+        "name": "Dal Palak",
+        "description": "Tempered spinach, yellow lentil",
+        "price": 595.0,
+        "is_veg": true
+      },
+      {
+        "name": "24Hr Dal Makhani",
+        "description": "Smoked lentil, butter",
+        "price": 655.0,
+        "is_veg": true
+      }
+    ]
+  },
+  {
+    "name": "Rice",
+    "slug": "rice",
+    "sort_order": 19,
+    "items": [
+      {
+        "name": "Steam Rice",
+        "description": null,
+        "price": 355.0,
+        "is_veg": true
+      },
+      {
+        "name": "Ghee Jeera Bhaat",
+        "description": null,
+        "price": 375.0,
+        "is_veg": true
+      },
+      {
+        "name": "Dal Palak Khichdi",
+        "description": null,
+        "price": 425.0,
+        "is_veg": true
+      },
+      {
+        "name": "Dal Khichdi",
+        "description": null,
+        "price": 425.0,
+        "is_veg": true
+      },
+      {
+        "name": "Aamchi Tawa Pulao",
+        "description": null,
+        "price": 455.0,
+        "is_veg": true
+      },
+      {
+        "name": "Rakabdar's Biryani",
+        "description": null,
+        "price": 575.0,
+        "is_veg": true
+      },
+      {
+        "name": "Lucknowi Biryani",
+        "description": null,
+        "price": 575.0,
+        "is_veg": true
+      },
+      {
+        "name": "Hyderabadi Biryani",
+        "description": null,
+        "price": 575.0,
+        "is_veg": true
+      }
+    ]
+  },
+  {
+    "name": "Breads",
+    "slug": "breads",
+    "sort_order": 20,
+    "items": [
+      {
+        "name": "Tandoori Roti",
+        "description": "Smoked Butter | Ghee Rogan",
+        "price": 175.0,
+        "is_veg": true
+      },
+      {
+        "name": "Naan — Chilli Garlic | Masala Butter",
+        "description": null,
+        "price": 225.0,
+        "is_veg": true
+      },
+      {
+        "name": "Laccha Paratha Pudina | Mirchi",
+        "description": null,
+        "price": 225.0,
+        "is_veg": true
+      },
+      {
+        "name": "Warqi Paratha",
+        "description": null,
+        "price": 225.0,
+        "is_veg": true
+      },
+      {
+        "name": "Black Pepper Churchur Naan",
+        "description": null,
+        "price": 245.0,
+        "is_veg": true
+      },
+      {
+        "name": "Kulchettes Cheese | Green | Aloo Pyaaz",
+        "description": null,
+        "price": 245.0,
+        "is_veg": true
+      },
+      {
+        "name": "Sundried Tomato Mozzarella Kulcha",
+        "description": null,
+        "price": 275.0,
+        "is_veg": true
+      }
+    ]
+  },
+  {
+    "name": "Sides",
+    "slug": "sides",
+    "sort_order": 21,
+    "items": [
+      {
+        "name": "Masala Papad (1 pc)",
+        "description": null,
+        "price": 155.0,
+        "is_veg": true
+      },
+      {
+        "name": "Butter Milk",
+        "description": null,
+        "price": 195.0,
+        "is_veg": true
+      },
+      {
+        "name": "Papadum, Homemade Chutney Platter",
+        "description": null,
+        "price": 245.0,
+        "is_veg": true
+      },
+      {
+        "name": "Anar Ka Raita",
+        "description": null,
+        "price": 245.0,
+        "is_veg": true
+      },
+      {
+        "name": "Pudina Walnut Raita",
+        "description": null,
+        "price": 245.0,
+        "is_veg": true
+      },
+      {
+        "name": "Lassi",
+        "description": null,
+        "price": 245.0,
+        "is_veg": true
+      },
+      {
+        "name": "Avocado Kachumber",
+        "description": null,
+        "price": 395.0,
+        "is_veg": true
+      },
+      {
+        "name": "Garlic Bread",
+        "description": null,
+        "price": 425.0,
+        "is_veg": true
+      },
+      {
+        "name": "Cheese Garlic Bread",
+        "description": null,
+        "price": 425.0,
+        "is_veg": true
+      }
+    ]
+  },
+  {
+    "name": "Desserts",
+    "slug": "desserts",
+    "sort_order": 22,
+    "items": [
+      {
+        "name": "Shahi Tukda Dippers",
+        "description": null,
+        "price": 545.0,
+        "is_veg": true
+      },
+      {
+        "name": "Ice Cream Sundae",
+        "description": null,
+        "price": 555.0,
+        "is_veg": true
+      },
+      {
+        "name": "Hot Chocolate Brownie",
+        "description": null,
+        "price": 565.0,
+        "is_veg": true
+      },
+      {
+        "name": "Brûlée Phirni",
+        "description": null,
+        "price": 575.0,
+        "is_veg": true
+      },
+      {
+        "name": "Biscoff Banoffee Pie",
+        "description": null,
+        "price": 575.0,
+        "is_veg": true
+      },
+      {
+        "name": "Carrot Halwa Cake",
+        "description": null,
+        "price": 575.0,
+        "is_veg": true
+      },
+      {
+        "name": "Gulab Jamun Tres Leche",
+        "description": null,
+        "price": 595.0,
+        "is_veg": true
+      },
+      {
+        "name": "Banjara Tiramisu",
+        "description": null,
+        "price": 625.0,
+        "is_veg": true
+      }
+    ]
+  },
+  {
+    "name": "Iced Teas",
+    "slug": "iced-teas",
+    "sort_order": 23,
+    "items": [
+      {
+        "name": "Kafir Lime & Lemongrass",
+        "description": null,
+        "price": 325.0,
+        "is_veg": true
+      },
+      {
+        "name": "Peach & Basil",
+        "description": null,
+        "price": 325.0,
+        "is_veg": true
+      },
+      {
+        "name": "Kahwa",
+        "description": "Kashmiri spices, almond honey",
+        "price": 345.0,
+        "is_veg": true
+      },
+      {
+        "name": "Orange",
+        "description": "Elderflower Syrup",
+        "price": 345.0,
+        "is_veg": true
+      },
+      {
+        "name": "Lavender",
+        "description": null,
+        "price": 345.0,
+        "is_veg": true
+      },
+      {
+        "name": "Hibiscus",
+        "description": "Ginger slice, orange",
+        "price": 365.0,
+        "is_veg": true
+      }
+    ]
+  },
+  {
+    "name": "Signature Mocktails",
+    "slug": "signature-mocktails",
+    "sort_order": 24,
+    "items": [
+      {
+        "name": "Mumbai Mango",
+        "description": "Coconut rum, pina colada, Mango syrup",
+        "price": 335.0,
+        "is_veg": true
+      },
+      {
+        "name": "Apple Lime Ice",
+        "description": "Apple crush, vanilla lime squash",
+        "price": 335.0,
+        "is_veg": true
+      },
+      {
+        "name": "V. Mojito",
+        "description": "Spanish Shrubs, mint, lime, sugar syrup",
+        "price": 335.0,
+        "is_veg": true
+      },
+      {
+        "name": "V. Marry",
+        "description": "Sun Dried Chilli Black Pepper, lime Juice, habanero bitters",
+        "price": 335.0,
+        "is_veg": true
+      },
+      {
+        "name": "The Refresher",
+        "description": "Kiwi Mango, lemon Rose, Jalapeño, citric foam",
+        "price": 335.0,
+        "is_veg": true
+      },
+      {
+        "name": "Redi",
+        "description": "Cranberry, Ginger, Grenadine, Pomegranate",
+        "price": 335.0,
+        "is_veg": true
+      },
+      {
+        "name": "Kashmiri Cooler",
+        "description": "Elderflower, Rose Hibiscus, cardamom, Saffron syrup, lime juice",
+        "price": 345.0,
+        "is_veg": true
+      },
+      {
+        "name": "Tovelo",
+        "description": "Fresh Coconut, Pineapple, Black Lime",
+        "price": 345.0,
+        "is_veg": true
+      },
+      {
+        "name": "V. Lagoon",
+        "description": "Blue curacao, lime juice, blue lagoon sprite",
+        "price": 335.0,
+        "is_veg": true
+      },
+      {
+        "name": "Tropical Sunrise",
+        "description": "Orange Juice, Pineapple, coke",
+        "price": 345.0,
+        "is_veg": true
+      },
+      {
+        "name": "Thai High",
+        "description": "Sweet Lychee, Jasmine both citrus iced, Ginger Ale",
+        "price": 345.0,
+        "is_veg": true
+      },
+      {
+        "name": "Blueberry Mule",
+        "description": "Fresh Blueberry Mint, Ginger Syrup, Top up Ginger Ale",
+        "price": 355.0,
+        "is_veg": true
+      },
+      {
+        "name": "Tropical C",
+        "description": "Passionfruit, Pineapple Juice, Jasmine",
+        "price": 355.0,
+        "is_veg": true
+      },
+      {
+        "name": "Beach Break",
+        "description": "Pineapple, Yuzu Essence, Coconut Cream",
+        "price": 355.0,
+        "is_veg": true
+      },
+      {
+        "name": "Seeds of Life",
+        "description": "Fresh Passion, Lime Juice, Mint Basil Syrup",
+        "price": 455.0,
+        "is_veg": true
+      },
+      {
+        "name": "Melon Fantasy",
+        "description": "Fresh Watermelon, Citric Juice, cranberry Syrup",
+        "price": 485.0,
+        "is_veg": true
+      },
+      {
+        "name": "Smooth Operator",
+        "description": "Fresh Pineapple, Cucumber Mint, Yuzu Mist, Mint and Citrus Syrup, Lime and Sugar Syrup",
+        "price": 495.0,
+        "is_veg": true
+      }
+    ]
+  },
+  {
+    "name": "Banjara Lemonades",
+    "slug": "banjara-lemonades",
+    "sort_order": 25,
+    "items": [
+      {
+        "name": "Classic",
+        "description": null,
+        "price": 275.0,
+        "is_veg": true
+      },
+      {
+        "name": "Coconut",
+        "description": null,
+        "price": 285.0,
+        "is_veg": true
+      },
+      {
+        "name": "Rose",
+        "description": null,
+        "price": 285.0,
+        "is_veg": true
+      },
+      {
+        "name": "Mango",
+        "description": null,
+        "price": 295.0,
+        "is_veg": true
+      },
+      {
+        "name": "Berry",
+        "description": null,
+        "price": 305.0,
+        "is_veg": true
+      }
+    ]
+  },
+  {
+    "name": "Indian Estate Coffee",
+    "slug": "indian-estate-coffee",
+    "sort_order": 26,
+    "items": [
+      {
+        "name": "Americano",
+        "description": null,
+        "price": 175.0,
+        "is_veg": true
+      },
+      {
+        "name": "House Blend Cold Brew on Ice",
+        "description": null,
+        "price": 185.0,
+        "is_veg": true
+      },
+      {
+        "name": "Espresso",
+        "description": null,
+        "price": 195.0,
+        "is_veg": true
+      },
+      {
+        "name": "Lungo / Cappuccino / Flat White",
+        "description": null,
+        "price": 205.0,
+        "is_veg": true
+      },
+      {
+        "name": "Latte / Mocha",
+        "description": null,
+        "price": 215.0,
+        "is_veg": true
+      },
+      {
+        "name": "Espresso & Tonic with Orange Slice",
+        "description": null,
+        "price": 215.0,
+        "is_veg": true
+      },
+      {
+        "name": "Affogato / Condensed Milk",
+        "description": null,
+        "price": 215.0,
+        "is_veg": true
+      },
+      {
+        "name": "Hot Chocolate / Vanilla & Cinnamon",
+        "description": null,
+        "price": 225.0,
+        "is_veg": true
+      },
+      {
+        "name": "Macchiato / Cortado",
+        "description": null,
+        "price": 205.0,
+        "is_veg": true
+      },
+      {
+        "name": "Iced Americano",
+        "description": null,
+        "price": 225.0,
+        "is_veg": true
+      },
+      {
+        "name": "Iced Mocha",
+        "description": null,
+        "price": 245.0,
+        "is_veg": true
+      },
+      {
+        "name": "Classic Cold Coffee",
+        "description": null,
+        "price": 299.0,
+        "is_veg": true
+      },
+      {
+        "name": "Frappe",
+        "description": "Ice Coffee and Milk",
+        "price": 305.0,
+        "is_veg": true
+      },
+      {
+        "name": "Mocha Frappe",
+        "description": "Ice Cream, Chocolate Milk and Coffee",
+        "price": 365.0,
+        "is_veg": true
+      },
+      {
+        "name": "Indulgend Cold Coffee",
+        "description": "Ice Cream, Coffee with Chocolate and Whipped Cream",
+        "price": 399.0,
+        "is_veg": true
+      },
+      {
+        "name": "Add Ons",
+        "description": "Extra Espresso Shot / Flavour Syrup",
+        "price": 75.0,
+        "is_veg": true
+      }
+    ]
+  },
+  {
+    "name": "Cold Pressed Juices",
+    "slug": "cold-pressed-juices",
+    "sort_order": 27,
+    "items": [
+      {
+        "name": "Orange / Pineapple / Watermelon / Sweet Lime",
+        "description": "Range ₹285–295",
+        "price": 285.0,
+        "is_veg": true
+      },
+      {
+        "name": "One for the Soul",
+        "description": "Sugarcane, Ginger, Lime, Mint",
+        "price": 275.0,
+        "is_veg": true
+      },
+      {
+        "name": "Heart Beet",
+        "description": "Apple, Beetroot, Carrot, Amla",
+        "price": 305.0,
+        "is_veg": true
+      },
+      {
+        "name": "Rainbow",
+        "description": "Orange, Sweet Lime, Basil, Chilli, Stevia",
+        "price": 305.0,
+        "is_veg": true
+      },
+      {
+        "name": "Drink Your Greens",
+        "description": "Spinach, Celery, Cucumber, Green Apple",
+        "price": 315.0,
+        "is_veg": true
+      },
+      {
+        "name": "Tropical Sunshine",
+        "description": "Pineapple, Lemon, Ginger, Honey, Tea",
+        "price": 325.0,
+        "is_veg": true
+      }
+    ]
+  },
+  {
+    "name": "Smoothies",
+    "slug": "smoothies",
+    "sort_order": 28,
+    "items": [
+      {
+        "name": "Monkey",
+        "description": "Dark Chocolate, Peanut Butter, Banana, Dates",
+        "price": 365.0,
+        "is_veg": true
+      },
+      {
+        "name": "Skinny Berry",
+        "description": "Strawberry, Blueberry, Raspberry, Basil",
+        "price": 365.0,
+        "is_veg": true
+      },
+      {
+        "name": "Green Monster",
+        "description": "Green Apple, Kiwi, Spinach, Vanilla",
+        "price": 365.0,
+        "is_veg": true
+      }
+    ]
+  },
+  {
+    "name": "Thick Shakes",
+    "slug": "thick-shakes",
+    "sort_order": 29,
+    "items": [
+      {
+        "name": "Masala Chai Latte",
+        "description": "Masala, Chai, Masala Tea, Whipped Caramel",
+        "price": 355.0,
+        "is_veg": true
+      },
+      {
+        "name": "Cinnamon Cold Coffee",
+        "description": "Vanilla Ice Cream, Coffee, Caramel Cinnamon",
+        "price": 365.0,
+        "is_veg": true
+      },
+      {
+        "name": "S'mores Milkshake",
+        "description": "Marshmallow Cream, Malt Milk, Chocolate Cream, Biscuit Crumbs",
+        "price": 375.0,
+        "is_veg": true
+      },
+      {
+        "name": "Old School Strawberry Milkshake",
+        "description": "Strawberry Ice Cream, Strawberry Chutney, Vanilla Shake",
+        "price": 375.0,
+        "is_veg": true
+      },
+      {
+        "name": "Oreo Cheesecake Milkshake",
+        "description": "Vanilla Ice Cream, Oreo's, Cheesecake, Whipped Caramel Cream",
+        "price": 395.0,
+        "is_veg": true
+      },
+      {
+        "name": "Caramel Paradise",
+        "description": "Toffee Biscuits, Toffee Sauce, Toffee Crumb",
+        "price": 415.0,
+        "is_veg": true
+      }
+    ]
+  }
+]

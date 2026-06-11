@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Menu — Banjara Gourmet Dining</title>
-  <meta name="description" content="Explore Banjara's full menu — soups, chaats, live stations, mains, desserts and drinks. Premium gourmet dining in Ahmedabad.">
+  <meta name="description" content="Explore Banjara's full menu — soups, chaats, live stations, mains, desserts and drinks. Pre-order online for pickup or your table.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Cinzel:wght@400;600;700;900&display=swap" rel="stylesheet">
@@ -13,38 +13,11 @@
   <style>
     .menu-wrap { max-width: 1320px; margin: 0 auto; padding: 80px 60px 120px; }
 
-    /* Tab bar */
-    .tab-bar { display: flex; flex-wrap: wrap; justify-content: center; margin-bottom: 64px; border: 1px solid rgba(201,169,110,0.2); }
-    .menu-tab {
-      font-family: 'Cinzel', serif; font-size: 9px; letter-spacing: 3px; text-transform: uppercase;
-      padding: 14px 24px; background: transparent; border: none; border-right: 1px solid rgba(201,169,110,0.15);
-      color: rgba(245,245,245,0.45); cursor: pointer; transition: all 0.3s ease;
-    }
-    .menu-tab:last-child { border-right: none; }
-    .menu-tab:hover { color: var(--gold); background: rgba(201,169,110,0.04); }
-    .menu-tab.active { background: var(--gold); color: var(--black); }
-
-    .cat-panel { display: none; }
-    .cat-panel.active { display: block; }
-
-    /* Featured photo cards row */
-    .featured-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; margin-bottom: 60px; }
-    .feat-card { position: relative; overflow: hidden; cursor: default; }
-    .feat-card img { width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block; transition: transform 0.5s ease; }
-    .feat-card:hover img { transform: scale(1.05); }
-    .feat-card-body {
-      position: absolute; bottom: 0; left: 0; right: 0;
-      padding: 20px; background: linear-gradient(to top, rgba(10,10,10,0.92) 0%, transparent 100%);
-    }
-    .feat-tag { font-family: 'Cinzel',serif; font-size: 8px; letter-spacing: 3px; color: var(--gold); text-transform: uppercase; margin-bottom: 4px; }
-    .feat-name { font-family: 'Playfair Display',serif; font-size: 1.15rem; color: var(--cream); line-height: 1.2; }
-    .feat-price { font-family: 'Cinzel',serif; font-size: 11px; color: rgba(201,169,110,0.8); margin-top: 4px; }
-
-    /* Section within a tab */
-    .menu-section-block { margin-bottom: 52px; }
+    /* Section within the menu */
+    .menu-section-block { margin-bottom: 52px; scroll-margin-top: 140px; }
     .menu-section-heading {
       display: flex; align-items: center; gap: 16px;
-      font-family: 'Cinzel',serif; font-size: 10px; letter-spacing: 5px;
+      font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: 5px;
       color: var(--gold); text-transform: uppercase; margin-bottom: 20px;
     }
     .menu-section-heading::after { content:''; flex:1; height:1px; background: linear-gradient(90deg, rgba(201,169,110,0.4), transparent); }
@@ -58,14 +31,11 @@
     }
     .menu-row:hover { background: rgba(201,169,110,0.03); margin: 0 -12px; padding-left: 12px; padding-right: 12px; }
     .menu-row:last-child { border-bottom: none; }
-    .row-left { flex: 1; min-width: 0; }
-    .row-name { font-family: 'Playfair Display',serif; font-size: 1.05rem; color: var(--cream); line-height: 1.3; }
+    .row-left { flex-shrink: 1; min-width: 0; }
+    .row-name { font-family: 'Playfair Display',serif; font-size: 1.1rem; color: var(--cream); line-height: 1.35; }
     .row-desc { font-size: 0.85rem; color: rgba(245,245,245,0.38); font-style: italic; margin-top: 3px; line-height: 1.5; }
     .row-price { font-family: 'Cinzel',serif; font-size: 11px; color: var(--gold); white-space: nowrap; flex-shrink: 0; letter-spacing: 1px; }
     .row-dots { flex: 1; border-bottom: 1px dotted rgba(201,169,110,0.2); margin: 0 10px; position: relative; top: -5px; min-width: 20px; }
-
-    /* Drinks grid (2 col) */
-    .drinks-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
 
     /* 7-course banner */
     .course-banner {
@@ -76,20 +46,15 @@
     }
 
     @media (max-width: 900px) {
-      .featured-row { grid-template-columns: 1fr 1fr; }
-      .drinks-grid { grid-template-columns: 1fr; }
       .menu-wrap { padding: 60px 32px 80px; }
-      .tab-bar { gap: 0; }
-      .menu-tab { padding: 12px 16px; font-size: 8px; }
     }
     @media (max-width: 560px) {
-      .featured-row { grid-template-columns: 1fr; }
       .menu-wrap { padding: 48px 16px 60px; }
       .course-banner { padding: 24px; }
     }
   </style>
 </head>
-<body>
+<body data-cart-ui="auto">
 
 <div id="loading-screen">
   <div class="loader-wrapper"><div class="loader-ring"></div><div class="loader-inner"></div></div>
@@ -135,14 +100,16 @@
     <div class="section-label" style="animation:fadeInUp .8s ease both;">Banjara Gourmet Dining</div>
     <h1 class="section-title" style="font-size:clamp(2.2rem,5vw,4.2rem);animation:fadeInUp .8s ease .15s both;">Our <em>Menu</em></h1>
     <div class="divider" style="justify-content:center;animation:fadeInUp .8s ease .3s both;"><span class="divider-icon">◆</span></div>
-    <p style="color:var(--cream-dim);font-size:1.05rem;max-width:480px;margin:0 auto;animation:fadeInUp .8s ease .45s both;">All prices are per portion &nbsp;·&nbsp; Taxes extra &nbsp;·&nbsp; Pure vegetarian kitchen</p>
+    <p style="color:var(--cream-dim);font-size:1.05rem;max-width:520px;margin:0 auto;animation:fadeInUp .8s ease .45s both;">
+      All prices per portion &nbsp;·&nbsp; Taxes extra &nbsp;·&nbsp; Tap <i class="fas fa-plus" style="font-size:0.8rem;color:var(--gold);"></i> to pre-order any dish for pickup or your table
+    </p>
   </div>
 </div>
 
 <!-- MENU BODY -->
 <div class="menu-wrap">
 
-  <!-- 7-Course Banner -->
+  <!-- 7-Course Banner — kept as hand-curated marketing block -->
   <div class="course-banner reveal">
     <div>
       <div class="section-label" style="margin-bottom:6px;">Chef's Exclusive</div>
@@ -156,616 +123,13 @@
     </div>
   </div>
 
-  <!-- TAB BAR -->
-  <div class="reveal" style="margin-bottom:0;">
-    <div class="tab-bar">
-      <button class="menu-tab active"  onclick="switchTab('starters',this)"><i class="fas fa-leaf"></i> Starters</button>
-      <button class="menu-tab" onclick="switchTab('small',this)"><i class="fas fa-seedling"></i> Small Plates</button>
-      <button class="menu-tab" onclick="switchTab('live',this)"><i class="fas fa-fire-alt"></i> Live Stations</button>
-      <button class="menu-tab" onclick="switchTab('mains',this)"><i class="fas fa-utensils"></i> Mains</button>
-      <button class="menu-tab" onclick="switchTab('desserts',this)"><i class="fas fa-cookie"></i> Desserts</button>
-      <button class="menu-tab" onclick="switchTab('drinks',this)"><i class="fas fa-glass-martini-alt"></i> Drinks</button>
-    </div>
-  </div>
+  <!-- Sticky category jump bar — populated by js/menu-page.js -->
+  <nav id="menu-jumpbar" class="menu-jumpbar" aria-label="Menu categories"></nav>
 
-  <!-- ═══ STARTERS ═══ -->
-  <div id="tab-starters" class="cat-panel active">
-    <div class="featured-row" style="margin-top:48px;">
-      <div class="feat-card reveal">
-        <img src="images/curry-bowl.jpg" alt="Signature Soup">
-        <div class="feat-card-body">
-          <div class="feat-tag">Soups</div>
-          <div class="feat-name">Kashmiri Themthuk</div>
-          <div class="feat-price">₹375</div>
-        </div>
-      </div>
-      <div class="feat-card reveal reveal-delay-2">
-        <img src="images/tacos-chaat.jpg" alt="Chaat Party">
-        <div class="feat-card-body">
-          <div class="feat-tag">Chaat Party</div>
-          <div class="feat-name">Bombay Chinese Bhel</div>
-          <div class="feat-price">₹475</div>
-        </div>
-      </div>
-      <div class="feat-card reveal reveal-delay-3">
-        <img src="images/kitchen.jpg" alt="Salads">
-        <div class="feat-card-body">
-          <div class="feat-tag">Salads</div>
-          <div class="feat-name">Caprese Burrata</div>
-          <div class="feat-price">₹525</div>
-        </div>
-      </div>
-    </div>
+  <!-- Menu mount point — populated by js/menu-page.js -->
+  <div id="menu-root"></div>
 
-    <!-- SOUPS -->
-    <div class="menu-section-block reveal">
-      <div class="menu-section-heading">Soups</div>
-      <div class="menu-list">
-        <div class="menu-row"><div class="row-left"><div class="row-name">Mr Lee's Manchow</div><div class="row-desc">Crispy noodles, crispy vegetables</div></div><div class="row-dots"></div><div class="row-price">₹375</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">It's Hot, It's Sour</div><div class="row-desc">Toban Tofu, Shiitake</div></div><div class="row-dots"></div><div class="row-price">₹375</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Miso Sweet Corn Soup</div><div class="row-desc">Bamboo & bok choy</div></div><div class="row-dots"></div><div class="row-price">₹375</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Kashmiri Themthuk</div><div class="row-desc">Chilli, Butter Bean, Crispy Tofu, Bread</div></div><div class="row-dots"></div><div class="row-price">₹375</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Lemon Coriander</div><div class="row-desc">Kalamique, Shiitake, Chilli Crunch</div></div><div class="row-dots"></div><div class="row-price">₹375</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Asian Magic Broth</div><div class="row-desc">Tofu, Kelp, Chilli Labneh</div></div><div class="row-dots"></div><div class="row-price">₹375</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Roasted Tomato Basil</div><div class="row-desc">Cheddar Crouton</div></div><div class="row-dots"></div><div class="row-price">₹395</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Malaysian Thupka Soup</div><div class="row-desc">Noodles, Jasmine with all hits</div></div><div class="row-dots"></div><div class="row-price">₹395</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Brocolli Almond Cheddar</div></div><div class="row-dots"></div><div class="row-price">₹395</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Mexican Tortilla Soup</div><div class="row-desc">Crispy Tortilla, Peppers</div></div><div class="row-dots"></div><div class="row-price">₹395</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Corn Palak Shorba</div><div class="row-desc">Toasted almond quinoa</div></div><div class="row-dots"></div><div class="row-price">₹395</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">DIY Burmese Khao Suey</div><div class="row-desc">Noodles, Crispy noodles, garnishes, thick brown gravy</div></div><div class="row-dots"></div><div class="row-price">₹575</div></div>
-      </div>
-    </div>
-
-    <!-- SALADS -->
-    <div class="menu-section-block reveal">
-      <div class="menu-section-heading">Salads</div>
-      <div class="menu-list">
-        <div class="menu-row"><div class="row-left"><div class="row-name">Grilled Caesar</div><div class="row-desc">Grilled Butter Chicken, Parmesan Dressing</div></div><div class="row-dots"></div><div class="row-price">₹475</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Asian Crunchy Salad</div><div class="row-desc">Crispy Noodles, Peanut Butter, Tofu</div></div><div class="row-dots"></div><div class="row-price">₹475</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Caprese Burrata</div><div class="row-desc">Tomatoes, sweet, Pistachio Pesto, Balsamic, Crispy Basil</div></div><div class="row-dots"></div><div class="row-price">₹525</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Mexican Corn and Avocado</div><div class="row-desc">Roasted Corn, Avocado, Chipotle Cheese</div></div><div class="row-dots"></div><div class="row-price">₹525</div></div>
-      </div>
-    </div>
-
-    <!-- CHAAT PARTY -->
-    <div class="menu-section-block reveal">
-      <div class="menu-section-heading">Chaat Party</div>
-      <div class="menu-list">
-        <div class="menu-row"><div class="row-left"><div class="row-name">Chilli Passionfruit Pani Puri</div><div class="row-desc">Passionfruit shots, khatta pani</div></div><div class="row-dots"></div><div class="row-price">₹455</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Aloo Tikki Canvas</div><div class="row-desc">Fresh herbs, paneer curry, dal chutneys</div></div><div class="row-dots"></div><div class="row-price">₹475</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">3 Patta Chaat</div><div class="row-desc">Sweet, tangy, kasoori tea</div></div><div class="row-dots"></div><div class="row-price">₹475</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Bombay Chinese Bhel</div><div class="row-desc">Crispy noodles, schezwan chutneys</div></div><div class="row-dots"></div><div class="row-price">₹475</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Dim-Sum Chaat</div><div class="row-desc">Fried Dim-sums, Chutneys</div></div><div class="row-dots"></div><div class="row-price">₹475</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Ying Yang Dahi Puri</div><div class="row-desc">Smoked Tofu, shiitake chutneys</div></div><div class="row-dots"></div><div class="row-price">₹475</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Layered Papdi Pullover Chaat</div><div class="row-desc">Sweet Corn, potato, masala chutney</div></div><div class="row-dots"></div><div class="row-price">₹495</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Mexican Chaat</div><div class="row-desc">Crispy tortillas, anardana, chutneys</div></div><div class="row-dots"></div><div class="row-price">₹495</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Avocado Sev Puri Platter <span style="font-size:0.8rem;color:var(--cream-muted);">(8 pcs)</span></div></div><div class="row-dots"></div><div class="row-price">₹525</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Smoked Burrata Lotus Stem Chaat</div><div class="row-desc">Spicy tamarind compote, anti-dhuniya sev</div></div><div class="row-dots"></div><div class="row-price">₹545</div></div>
-      </div>
-    </div>
-
-    <!-- SHARING PLATES -->
-    <div class="menu-section-block reveal">
-      <div class="menu-section-heading">Banjara Sharing Plates</div>
-      <div class="menu-list">
-        <div class="menu-row"><div class="row-left"><div class="row-name">Chilli Cheese Pull Apart Bread</div><div class="row-desc">Fresh Chilli Mozzarella, Garlic Butter, Herbs</div></div><div class="row-dots"></div><div class="row-price">₹995</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Bruschetta Board</div><div class="row-desc">Roasted Peppers, Cherry Tomato Relish</div></div><div class="row-dots"></div><div class="row-price">₹995</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Hummus Board</div><div class="row-desc">Classic hummus, Roasted Red Hummus, Fluffy Pita, Burnt Labneh</div></div><div class="row-dots"></div><div class="row-price">₹995</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Tandoori Platter</div><div class="row-desc">Hariyali Kebab, Calcutta Club Bharwan, Kesari Paneer Tikka, Mushroom Galouti, Cheesy Kebab</div></div><div class="row-dots"></div><div class="row-price">₹1,275</div></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ═══ SMALL PLATES ═══ -->
-  <div id="tab-small" class="cat-panel">
-    <div class="featured-row" style="margin-top:48px;">
-      <div class="feat-card reveal">
-        <img src="images/tacos-chaat.jpg" alt="Indian Small Plates">
-        <div class="feat-card-body">
-          <div class="feat-tag">Indian Favourites</div>
-          <div class="feat-name">Makhani Shots</div>
-          <div class="feat-price">₹595</div>
-        </div>
-      </div>
-      <div class="feat-card reveal reveal-delay-2">
-        <img src="images/pizza.jpg" alt="International">
-        <div class="feat-card-body">
-          <div class="feat-tag">International</div>
-          <div class="feat-name">Dirty Nachos</div>
-          <div class="feat-price">₹455</div>
-        </div>
-      </div>
-      <div class="feat-card reveal reveal-delay-3">
-        <img src="images/sushi.jpg" alt="Dimsums">
-        <div class="feat-card-body">
-          <div class="feat-tag">Dimsums & Baos</div>
-          <div class="feat-name">Delhi Haat Ke Momos</div>
-          <div class="feat-price">₹575</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="menu-section-block reveal">
-      <div class="menu-section-heading">Indian Favourites</div>
-      <div class="menu-list">
-        <div class="menu-row"><div class="row-left"><div class="row-name">Maharashtrian Kanda Bhaji</div><div class="row-desc">Sliced Onion, Besan Batter, Chutneys</div></div><div class="row-dots"></div><div class="row-price">₹495</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Kashmiri Nadru Monje</div><div class="row-desc">Lotus root, jalapeno, crispy masala, hiramanth</div></div><div class="row-dots"></div><div class="row-price">₹495</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Rajma Shami Pao</div><div class="row-desc">Rajmah patty, mince chilli cream</div></div><div class="row-dots"></div><div class="row-price">₹495</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Kungpao Manchurian</div><div class="row-desc">Cottage cheese, black bean chilli, peanuts</div></div><div class="row-dots"></div><div class="row-price">₹525</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Paan Dahi Kebab</div><div class="row-desc">Spiced Makhanwala, mint tulsi chutney</div></div><div class="row-dots"></div><div class="row-price">₹545</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Cheesy Hara Akhrot Kebab</div><div class="row-desc">Herb cheese, walnuts</div></div><div class="row-dots"></div><div class="row-price">₹545</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Railway Beetroot Outlet</div><div class="row-desc">Classic sauce, Beetroot Patty</div></div><div class="row-dots"></div><div class="row-price">₹575</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Makhani Shots</div><div class="row-desc">Dal makhani, cheese minis</div></div><div class="row-dots"></div><div class="row-price">₹595</div></div>
-      </div>
-    </div>
-
-    <div class="menu-section-block reveal">
-      <div class="menu-section-heading">International Favourites</div>
-      <div class="menu-list">
-        <div class="menu-row"><div class="row-left"><div class="row-name">Maggi Masala Fries</div><div class="row-desc">Chilli garlic, schezwan mayo</div></div><div class="row-dots"></div><div class="row-price">₹395</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Dirty Nachos</div><div class="row-desc">Baked cheese, tomato salsa, sour cream</div></div><div class="row-dots"></div><div class="row-price">₹455</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Mexican Cheese Bombs</div><div class="row-desc">Jalapeño cheese, ancho chilli dip</div></div><div class="row-dots"></div><div class="row-price">₹525</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Tiffin Potato Sliders</div><div class="row-desc">Mini pav, aloo patty</div></div><div class="row-dots"></div><div class="row-price">₹525</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Thai Basil Spring Rolls</div><div class="row-desc">Sweet chilli, rice paper basil</div></div><div class="row-dots"></div><div class="row-price">₹545</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Wok Tossed Waterchestnuts</div><div class="row-desc">Szechuan green vegetable</div></div><div class="row-dots"></div><div class="row-price">₹545</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Kung Pao Lotus Stem</div><div class="row-desc">Roasted cashew, chilli-soy</div></div><div class="row-dots"></div><div class="row-price">₹545</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Firecracker Paneer Katifi</div><div class="row-desc">Shredded wheatgrass paste, sriracha</div></div><div class="row-dots"></div><div class="row-price">₹545</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Sizzling Paneer Chilly</div></div><div class="row-dots"></div><div class="row-price">₹545</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Sundried Tomato & Pesto Aranchini</div><div class="row-desc">Semi mozzarella, mint and jalapeño dip</div></div><div class="row-dots"></div><div class="row-price">₹545</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Salt and Pepper Vegetables</div></div><div class="row-dots"></div><div class="row-price">₹545</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Muromachi Crispy Vegetables</div><div class="row-desc">Stir fried batter-fried garlic</div></div><div class="row-dots"></div><div class="row-price">₹545</div></div>
-      </div>
-    </div>
-
-    <div class="menu-section-block reveal">
-      <div class="menu-section-heading">Dimsums & Baos &nbsp;<span style="font-size:0.75rem;font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--cream-muted);letter-spacing:0;">Chilli crunch, scallion oil, tomato sesame chutney · 6 pcs</span></div>
-      <div class="menu-list">
-        <div class="menu-row"><div class="row-left"><div class="row-name">Delhi Haat Ke Momos</div></div><div class="row-dots"></div><div class="row-price">₹575</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Vada Bao</div></div><div class="row-dots"></div><div class="row-price">₹595</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Cream Cheese Water Chestnut</div></div><div class="row-dots"></div><div class="row-price">₹625</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Paneer Chilli Bao</div></div><div class="row-dots"></div><div class="row-price">₹625</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Teriyaki Vegetable Bao</div></div><div class="row-dots"></div><div class="row-price">₹625</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Wontons in Chilli Broth</div></div><div class="row-dots"></div><div class="row-price">₹645</div></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ═══ LIVE STATIONS ═══ -->
-  <div id="tab-live" class="cat-panel">
-    <div class="featured-row" style="margin-top:48px;">
-      <div class="feat-card reveal">
-        <img src="images/tacos-chaat.jpg" alt="Tikkis & Kebabs">
-        <div class="feat-card-body">
-          <div class="feat-tag">Tikkis & Kebabs</div>
-          <div class="feat-name">Paneer Tikka Three Ways</div>
-          <div class="feat-price">₹645</div>
-        </div>
-      </div>
-      <div class="feat-card reveal reveal-delay-2">
-        <img src="images/pizza.jpg" alt="Wood Fired Pizza">
-        <div class="feat-card-body">
-          <div class="feat-tag">Wood Fired Pizza</div>
-          <div class="feat-name">Pesto Burrata</div>
-          <div class="feat-price">₹725</div>
-        </div>
-      </div>
-      <div class="feat-card reveal reveal-delay-3">
-        <img src="images/sushi.jpg" alt="Sushi">
-        <div class="feat-card-body">
-          <div class="feat-tag">Sushi</div>
-          <div class="feat-name">Spicy Avocado Roll</div>
-          <div class="feat-price">₹625</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="menu-section-block reveal">
-      <div class="menu-section-heading">Tikkis & Kebabs</div>
-      <div class="menu-list">
-        <div class="menu-row"><div class="row-left"><div class="row-name">Dilli-6 Seekh Kebab</div><div class="row-desc">Lamb mince, cilantro, ginger, onion</div></div><div class="row-dots"></div><div class="row-price">₹595</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Calcutta Club Bharwan Aloo</div><div class="row-desc">Rohan Kebab, dum-stuffed potato</div></div><div class="row-dots"></div><div class="row-price">₹595</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Kesari Panner Tikka</div><div class="row-desc">Saffron Marinated, Raisin Chutney, Tamarind</div></div><div class="row-dots"></div><div class="row-price">₹625</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Amritsari Paneer Tikka</div><div class="row-desc">Spiced yogurt marination, mint chutney</div></div><div class="row-dots"></div><div class="row-price">₹625</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Mushroom and Cheese Galouti</div><div class="row-desc">Shahi, porcini, spicy pineapple chutney</div></div><div class="row-dots"></div><div class="row-price">₹625</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Awadhi Seekh Kebab</div><div class="row-desc">Garlic, Ajwain, Saunth Ki Sabzi</div></div><div class="row-dots"></div><div class="row-price">₹625</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Hariyali Soya Seekh</div><div class="row-desc">Moist, Djondni, Coconut</div></div><div class="row-dots"></div><div class="row-price">₹625</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Achari Soya Chaap</div><div class="row-desc">Whipped Tofu, peanut chutney</div></div><div class="row-dots"></div><div class="row-price">₹625</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Paneer Tikka Three Ways</div><div class="row-desc">Tandoori, Malabari, Afghani, Kali Mirch; Green Apple Mint Relish</div></div><div class="row-dots"></div><div class="row-price">₹645</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Pahadgani Paneer</div><div class="row-desc">Green apple mint relish, masala onion</div></div><div class="row-dots"></div><div class="row-price">₹645</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Bharwan Rajputana Paneer</div><div class="row-desc">Nut stuffed, spicy mint chutney</div></div><div class="row-dots"></div><div class="row-price">₹645</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Mustard Malai Brocolli</div><div class="row-desc">Crispy garlic, pista vinaigrette, mango pickle</div></div><div class="row-dots"></div><div class="row-price">₹675</div></div>
-      </div>
-    </div>
-
-    <div class="menu-section-block reveal">
-      <div class="menu-section-heading">Wood Fired Pizza &nbsp;<span style="font-size:0.75rem;font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--cream-muted);letter-spacing:0;">Soft Crust | Thin Crust</span></div>
-      <div class="menu-list">
-        <div class="menu-row"><div class="row-left"><div class="row-name">Cheese Overload</div><div class="row-desc">Cheddar, cream, pizza cheese</div></div><div class="row-dots"></div><div class="row-price">₹695</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Margherita</div><div class="row-desc">Mozzarella, basil</div></div><div class="row-dots"></div><div class="row-price">₹695</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Rainbow</div><div class="row-desc">Peppers, mushrooms, olives, onions</div></div><div class="row-dots"></div><div class="row-price">₹695</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Hot Head</div><div class="row-desc">Ajvar, chilli, crunchy jalapeno, corn</div></div><div class="row-dots"></div><div class="row-price">₹695</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Pesto Burrata</div><div class="row-desc">Walnut pesto, blistered cherry tomatoes</div></div><div class="row-dots"></div><div class="row-price">₹725</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Tandoori Paradise</div><div class="row-desc">Paneer tikka, mushroom, capsicum, green chilli, paneer</div></div><div class="row-dots"></div><div class="row-price">₹745</div></div>
-      </div>
-    </div>
-
-    <div class="menu-section-block reveal">
-      <div class="menu-section-heading">Sushi</div>
-      <div class="menu-list">
-        <div class="menu-row"><div class="row-left"><div class="row-name">4 Treasure Roll</div><div class="row-desc">Carrot, Cucumber, Avo, Cream Tofu</div></div><div class="row-dots"></div><div class="row-price">₹595</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Phily Cheese California Roll</div><div class="row-desc">Cream Cheese, Cucumber, Crispy Chip</div></div><div class="row-dots"></div><div class="row-price">₹595</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Spicy Avocado Roll</div><div class="row-desc">Jalapeño, Avocado, Toasted Sesame Seeds, Furikake</div></div><div class="row-dots"></div><div class="row-price">₹625</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Asparagus Tempura</div><div class="row-desc">Crispy Tempura, Wasabi Aioli</div></div><div class="row-dots"></div><div class="row-price">₹625</div></div>
-      </div>
-    </div>
-
-    <div class="menu-section-block reveal">
-      <div class="menu-section-heading">Little Mexico!!!!</div>
-      <div class="menu-list">
-        <div class="menu-row"><div class="row-left"><div class="row-name">Roasted Peppers and Cheese Quesadillas</div><div class="row-desc">Red Peppers, Jack Cheese, Chipotle Cream</div></div><div class="row-dots"></div><div class="row-price">₹595</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Mexican Hot Pot</div><div class="row-desc">Rajma, Cheese Sauce, Crinkle Sauce</div></div><div class="row-dots"></div><div class="row-price">₹625</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Nachos Tasting Platter</div><div class="row-desc">Cheese, Salsa, Guac, Sour Cream, Ancho Guacamole, Sour Cream</div></div><div class="row-dots"></div><div class="row-price">₹625</div></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ═══ MAINS ═══ -->
-  <div id="tab-mains" class="cat-panel">
-    <div class="featured-row" style="margin-top:48px;">
-      <div class="feat-card reveal">
-        <img src="images/curry-bowl.jpg" alt="Khazana">
-        <div class="feat-card-body">
-          <div class="feat-tag">Khazana</div>
-          <div class="feat-name">Kali Mirch Paneer Kadhai</div>
-          <div class="feat-price">₹625</div>
-        </div>
-      </div>
-      <div class="feat-card reveal reveal-delay-2">
-        <img src="images/pizza.jpg" alt="Pasta">
-        <div class="feat-card-body">
-          <div class="feat-tag">Pasta's & Rissoto</div>
-          <div class="feat-name">Quattro Fromage Mac & Cheese</div>
-          <div class="feat-price">₹695</div>
-        </div>
-      </div>
-      <div class="feat-card reveal reveal-delay-3">
-        <img src="images/kitchen.jpg" alt="Sizzlers">
-        <div class="feat-card-body">
-          <div class="feat-tag">Sizzler's</div>
-          <div class="feat-name">Oriental Hot Garlic Paneer</div>
-          <div class="feat-price">₹825</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="menu-section-block reveal">
-      <div class="menu-section-heading">Pasta's & Rissoto</div>
-      <div class="menu-list">
-        <div class="menu-row"><div class="row-left"><div class="row-name">Spaghetti Aglio Olio</div><div class="row-desc">Fresh Garlic, Parsley</div></div><div class="row-dots"></div><div class="row-price">₹625</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Alfredo Spaghetti</div><div class="row-desc">Parma Herb Crumbles</div></div><div class="row-dots"></div><div class="row-price">₹645</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Chilli Penne Arrabiata</div><div class="row-desc">Tomato, Garlic, Olives</div></div><div class="row-dots"></div><div class="row-price">₹645</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Spaghetti Rose</div><div class="row-desc">Carbonara Cream, Crushed Tomato, Crispy Basil</div></div><div class="row-dots"></div><div class="row-price">₹645</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Four Cheese Penne</div><div class="row-desc">Cheddar, Parmesan, Cream Cheese, Bocconcini</div></div><div class="row-dots"></div><div class="row-price">₹695</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Quattro Fromage Mac and Cheese</div><div class="row-desc">Béchamel, Mozzarella, Gouda, Parmesan; Option — Pineapple</div></div><div class="row-dots"></div><div class="row-price">₹695</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Layered Vegetable Lasagna</div></div><div class="row-dots"></div><div class="row-price">₹695</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Cream and Saffron Rissoto</div><div class="row-desc">Herb Crumbles, Basil</div></div><div class="row-dots"></div><div class="row-price">₹725</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Asparagus Green Pea Rissoto</div><div class="row-desc">Ricotta Parmesan, Crumble</div></div><div class="row-dots"></div><div class="row-price">₹725</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Sundried Tomato Rissoto</div><div class="row-desc">Bocconcini, Black Olives</div></div><div class="row-dots"></div><div class="row-price">₹725</div></div>
-      </div>
-    </div>
-
-    <div class="menu-section-block reveal">
-      <div class="menu-section-heading">Sizzler's Around the World</div>
-      <div class="menu-list">
-        <div class="menu-row"><div class="row-left"><div class="row-name">Mumbai Tawa Pulao</div><div class="row-desc">Basmati, Street Pavs, Tawa, Fried vegetables</div></div><div class="row-dots"></div><div class="row-price">₹785</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Oriental Hot Garlic Paneer</div><div class="row-desc">Paneer, Rice mushrooms, stir fried vegetables</div></div><div class="row-dots"></div><div class="row-price">₹825</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Tex Mex Pot Rice</div><div class="row-desc">Mexican rice, Nacho, Chinese sauce, smashed cream sauce</div></div><div class="row-dots"></div><div class="row-price">₹825</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Veg Stroganoff Sizzler</div><div class="row-desc">Sautéed Vegetables, buttered rice</div></div><div class="row-dots"></div><div class="row-price">₹825</div></div>
-      </div>
-    </div>
-
-    <div class="menu-section-block reveal">
-      <div class="menu-section-heading">From the Wok &nbsp;<span style="font-size:0.75rem;font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--cream-muted);letter-spacing:0;">Served with steamed Jasmine Rice</span></div>
-      <div class="menu-list">
-        <div class="menu-row"><div class="row-left"><div class="row-name">Tibetan Vegetable Stir Fry</div><div class="row-desc">Fresh vegetables, Fresh green sauce</div></div><div class="row-dots"></div><div class="row-price">₹695</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Cottage Cheese Shanghai</div><div class="row-desc">Chilli peppers, fried capsicum</div></div><div class="row-dots"></div><div class="row-price">₹695</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Classic Cottage Cheese Manchurian</div><div class="row-desc">Yuen, celery, bean sprouts</div></div><div class="row-dots"></div><div class="row-price">₹695</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Mapo Tofu</div><div class="row-desc">Mala Sichuan Szechuan</div></div><div class="row-dots"></div><div class="row-price">₹725</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Stir Fried Waterchestnut Sichaun</div><div class="row-desc">Fried garlic, cashews</div></div><div class="row-dots"></div><div class="row-price">₹725</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Hot Garlic Brocolli and Asparagus</div><div class="row-desc">Fried garlic, soy, butter</div></div><div class="row-dots"></div><div class="row-price">₹725</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Red Malaysian Curry</div><div class="row-desc">Jasmine rice, kaffir lime</div></div><div class="row-dots"></div><div class="row-price">₹725</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Thai Green / Red Curry</div><div class="row-desc">Jasmine rice, kaffir lime</div></div><div class="row-dots"></div><div class="row-price">₹725</div></div>
-      </div>
-    </div>
-
-    <div class="menu-section-block reveal">
-      <div class="menu-section-heading">Rice & Noodles</div>
-      <div class="menu-list">
-        <div class="menu-row"><div class="row-left"><div class="row-name">Fire Dragon Rice</div><div class="row-desc">Dragon, Szechuan, Smoked garlic</div></div><div class="row-dots"></div><div class="row-price">₹445</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Burnt Garlic Fried Rice</div><div class="row-desc">Fried garlic</div></div><div class="row-dots"></div><div class="row-price">₹445</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Dynamite Fried Rice</div><div class="row-desc">Crispy lao, lemongrass chilli sauce</div></div><div class="row-dots"></div><div class="row-price">₹455</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Hong Kong Noodles</div><div class="row-desc">Sautons, Crispy garlic</div></div><div class="row-dots"></div><div class="row-price">₹455</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Hakka Noodles</div><div class="row-desc">Szechuan, Crispy Garlic</div></div><div class="row-dots"></div><div class="row-price">₹455</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Pad Thai</div><div class="row-desc">Roasted peanut and soy peanut chilli sauce</div></div><div class="row-dots"></div><div class="row-price">₹475</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">3 Chilli Garlic Noodles</div><div class="row-desc">Crushed peppers, crushed peanuts</div></div><div class="row-dots"></div><div class="row-price">₹475</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Truffle Edamame Fried Rice</div><div class="row-desc">Crispy leeks, tatsoi corn</div></div><div class="row-dots"></div><div class="row-price">₹495</div></div>
-      </div>
-    </div>
-
-    <div class="menu-section-block reveal">
-      <div class="menu-section-heading">Khazana — Paneer Mains</div>
-      <div class="menu-list">
-        <div class="menu-row"><div class="row-left"><div class="row-name">Kali Mirch Paneer Kadhai</div><div class="row-desc">Red chillies, onion</div></div><div class="row-dots"></div><div class="row-price">₹625</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Highway Style Paneer Bhurji</div><div class="row-desc">Capsicum, tomatoes, green masala</div></div><div class="row-dots"></div><div class="row-price">₹625</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Paneer Pepper Khurchan</div><div class="row-desc">Peppers, onion</div></div><div class="row-dots"></div><div class="row-price">₹645</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Smoked Pepper Paneer</div></div><div class="row-dots"></div><div class="row-price">₹655</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">BBQ Paneer Masala</div><div class="row-desc">Habanero chilli oil</div></div><div class="row-dots"></div><div class="row-price">₹655</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Hari Mirch Paneer</div></div><div class="row-dots"></div><div class="row-price">₹655</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Sizzling Tawa Paneer</div><div class="row-desc">Tossed peppers, drumstick masala</div></div><div class="row-dots"></div><div class="row-price">₹675</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Paneer Pakiza</div><div class="row-desc">Tomato Gravy, Chilli Kewda</div></div><div class="row-dots"></div><div class="row-price">₹675</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Cottage Cheese Lababdar</div></div><div class="row-dots"></div><div class="row-price">₹675</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Cheese Butter Masala</div><div class="row-desc">Makhani Cream, Yogurt Oil</div></div><div class="row-dots"></div><div class="row-price">₹675</div></div>
-      </div>
-    </div>
-
-    <div class="menu-section-block reveal">
-      <div class="menu-section-heading">Khazana — Subz Mains</div>
-      <div class="menu-list">
-        <div class="menu-row"><div class="row-left"><div class="row-name">Homestyle Jeera Aloo</div><div class="row-desc">Tempered cumin</div></div><div class="row-dots"></div><div class="row-price">₹595</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Subz Nizami Handi</div><div class="row-desc">Cashew cashews, milk oil</div></div><div class="row-dots"></div><div class="row-price">₹625</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Amritsari Subz Kadhai</div><div class="row-desc">Rava onion, fried masala</div></div><div class="row-dots"></div><div class="row-price">₹625</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Subz Lucknowi Handi</div><div class="row-desc">Kewra, Saffron, Yogurt, Roquette</div></div><div class="row-dots"></div><div class="row-price">₹625</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Sizzling Hyderabadi Subzi</div><div class="row-desc">Roasted chilli, chilli oil</div></div><div class="row-dots"></div><div class="row-price">₹635</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Himalayan Subz Handi</div><div class="row-desc">Smoked tomato, onion paste</div></div><div class="row-dots"></div><div class="row-price">₹645</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Exotic Vegetable Khurchan</div><div class="row-desc">Peppers, onion, chilli oil</div></div><div class="row-dots"></div><div class="row-price">₹645</div></div>
-      </div>
-    </div>
-
-    <div class="menu-section-block reveal">
-      <div class="menu-section-heading">Khazana — Kofta & Chaap</div>
-      <div class="menu-list">
-        <div class="menu-row"><div class="row-left"><div class="row-name">Spinach and Corn Kofta</div><div class="row-desc">Bottle gourd, cashew cream</div></div><div class="row-dots"></div><div class="row-price">₹625</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Bhuna Soya Chaap</div><div class="row-desc">Bamboo stem, chilli oil</div></div><div class="row-dots"></div><div class="row-price">₹625</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Banjara Malai Kofta</div><div class="row-desc">Fresh garlic, makhani cream</div></div><div class="row-dots"></div><div class="row-price">₹645</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Mini Cheese Kofta</div><div class="row-desc">Soft, al dente</div></div><div class="row-dots"></div><div class="row-price">₹645</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Brocolli and Corn Kofta</div><div class="row-desc">Kurkure, desi filled garlic</div></div><div class="row-dots"></div><div class="row-price">₹655</div></div>
-      </div>
-    </div>
-
-    <div class="menu-section-block reveal">
-      <div class="menu-section-heading">Dal & Lentils</div>
-      <div class="menu-list">
-        <div class="menu-row"><div class="row-left"><div class="row-name">Dal Tadka</div><div class="row-desc">Tarka yellow arhar</div></div><div class="row-dots"></div><div class="row-price">₹595</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Dal Palak</div><div class="row-desc">Tempered spinach, yellow lentil</div></div><div class="row-dots"></div><div class="row-price">₹595</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">24Hr Dal Makhani</div><div class="row-desc">Smoked lentil, butter</div></div><div class="row-dots"></div><div class="row-price">₹655</div></div>
-      </div>
-    </div>
-
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;" class="reveal">
-      <div class="menu-section-block">
-        <div class="menu-section-heading">Rice</div>
-        <div class="menu-list">
-          <div class="menu-row"><div class="row-left"><div class="row-name">Steam Rice</div></div><div class="row-dots"></div><div class="row-price">₹355</div></div>
-          <div class="menu-row"><div class="row-left"><div class="row-name">Ghee Jeera Bhaat</div></div><div class="row-dots"></div><div class="row-price">₹375</div></div>
-          <div class="menu-row"><div class="row-left"><div class="row-name">Dal Palak Khichdi</div></div><div class="row-dots"></div><div class="row-price">₹425</div></div>
-          <div class="menu-row"><div class="row-left"><div class="row-name">Dal Khichdi</div></div><div class="row-dots"></div><div class="row-price">₹425</div></div>
-          <div class="menu-row"><div class="row-left"><div class="row-name">Aamchi Tawa Pulao</div></div><div class="row-dots"></div><div class="row-price">₹455</div></div>
-          <div class="menu-row"><div class="row-left"><div class="row-name">Rakabdar's Biryani</div></div><div class="row-dots"></div><div class="row-price">₹575</div></div>
-          <div class="menu-row"><div class="row-left"><div class="row-name">Lucknowi Biryani</div></div><div class="row-dots"></div><div class="row-price">₹575</div></div>
-          <div class="menu-row"><div class="row-left"><div class="row-name">Hyderabadi Biryani</div></div><div class="row-dots"></div><div class="row-price">₹575</div></div>
-        </div>
-      </div>
-      <div class="menu-section-block">
-        <div class="menu-section-heading">Breads</div>
-        <div class="menu-list">
-          <div class="menu-row"><div class="row-left"><div class="row-name">Tandoori Roti</div><div class="row-desc">Smoked Butter | Ghee Rogan</div></div><div class="row-dots"></div><div class="row-price">₹175</div></div>
-          <div class="menu-row"><div class="row-left"><div class="row-name">Naan — Chilli Garlic | Masala Butter</div></div><div class="row-dots"></div><div class="row-price">₹225</div></div>
-          <div class="menu-row"><div class="row-left"><div class="row-name">Laccha Paratha Pudina | Mirchi</div></div><div class="row-dots"></div><div class="row-price">₹225</div></div>
-          <div class="menu-row"><div class="row-left"><div class="row-name">Warqi Paratha</div></div><div class="row-dots"></div><div class="row-price">₹225</div></div>
-          <div class="menu-row"><div class="row-left"><div class="row-name">Black Pepper Churchur Naan</div></div><div class="row-dots"></div><div class="row-price">₹245</div></div>
-          <div class="menu-row"><div class="row-left"><div class="row-name">Kulchettes Cheese | Green | Aloo Pyaaz</div></div><div class="row-dots"></div><div class="row-price">₹245</div></div>
-          <div class="menu-row"><div class="row-left"><div class="row-name">Sundried Tomato Mozzarella Kulcha</div></div><div class="row-dots"></div><div class="row-price">₹275</div></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="menu-section-block reveal" style="margin-top:32px;">
-      <div class="menu-section-heading">Sides</div>
-      <div class="menu-list" style="display:grid;grid-template-columns:1fr 1fr;gap:0 32px;">
-        <div class="menu-row"><div class="row-left"><div class="row-name">Masala Papad (1 pc)</div></div><div class="row-dots"></div><div class="row-price">₹155</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Butter Milk</div></div><div class="row-dots"></div><div class="row-price">₹195</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Papadum, Homemade Chutney Platter</div></div><div class="row-dots"></div><div class="row-price">₹245</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Anar Ka Raita</div></div><div class="row-dots"></div><div class="row-price">₹245</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Pudina Walnut Raita</div></div><div class="row-dots"></div><div class="row-price">₹245</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Lassi</div></div><div class="row-dots"></div><div class="row-price">₹245</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Avocado Kachumber</div></div><div class="row-dots"></div><div class="row-price">₹395</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Garlic Bread</div></div><div class="row-dots"></div><div class="row-price">₹425</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Cheese Garlic Bread</div></div><div class="row-dots"></div><div class="row-price">₹425</div></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ═══ DESSERTS ═══ -->
-  <div id="tab-desserts" class="cat-panel">
-    <div class="featured-row" style="margin-top:48px;">
-      <div class="feat-card reveal">
-        <img src="images/rose-kheer.jpg" alt="Brûlée Phirni">
-        <div class="feat-card-body">
-          <div class="feat-tag">Indian Classics</div>
-          <div class="feat-name">Brûlée Phirni</div>
-          <div class="feat-price">₹575</div>
-        </div>
-      </div>
-      <div class="feat-card reveal reveal-delay-2">
-        <img src="images/pancakes.jpg" alt="Banjara Tiramisu">
-        <div class="feat-card-body">
-          <div class="feat-tag">Signature</div>
-          <div class="feat-name">Banjara Tiramisu</div>
-          <div class="feat-price">₹625</div>
-        </div>
-      </div>
-      <div class="feat-card reveal reveal-delay-3">
-        <img src="images/curry-bowl.jpg" alt="Gulab Jamun Tres Leche">
-        <div class="feat-card-body">
-          <div class="feat-tag">Fusion Dessert</div>
-          <div class="feat-name">Gulab Jamun Tres Leche</div>
-          <div class="feat-price">₹595</div>
-        </div>
-      </div>
-    </div>
-    <div class="menu-section-block reveal">
-      <div class="menu-section-heading">Desserts</div>
-      <div class="menu-list">
-        <div class="menu-row"><div class="row-left"><div class="row-name">Shahi Tukda Dippers</div></div><div class="row-dots"></div><div class="row-price">₹545</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Ice Cream Sundae</div></div><div class="row-dots"></div><div class="row-price">₹555</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Hot Chocolate Brownie</div></div><div class="row-dots"></div><div class="row-price">₹565</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Brûlée Phirni</div></div><div class="row-dots"></div><div class="row-price">₹575</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Biscoff Banoffee Pie</div></div><div class="row-dots"></div><div class="row-price">₹575</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Carrot Halwa Cake</div></div><div class="row-dots"></div><div class="row-price">₹575</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Gulab Jamun Tres Leche</div></div><div class="row-dots"></div><div class="row-price">₹595</div></div>
-        <div class="menu-row"><div class="row-left"><div class="row-name">Banjara Tiramisu</div></div><div class="row-dots"></div><div class="row-price">₹625</div></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ═══ DRINKS ═══ -->
-  <div id="tab-drinks" class="cat-panel">
-    <div class="featured-row" style="margin-top:48px;">
-      <div class="feat-card reveal" style="background:var(--charcoal);">
-        <img src="images/siting.jpg" alt="Signature Mocktails" style="aspect-ratio:4/3;object-fit:cover;">
-        <div class="feat-card-body">
-          <div class="feat-tag">Signature Mocktail</div>
-          <div class="feat-name">Mumbai Mango</div>
-          <div class="feat-price">₹335</div>
-        </div>
-      </div>
-      <div class="feat-card reveal reveal-delay-2">
-        <img src="images/kitchen.jpg" alt="Coffee" style="aspect-ratio:4/3;object-fit:cover;">
-        <div class="feat-card-body">
-          <div class="feat-tag">Indian Estate Coffee</div>
-          <div class="feat-name">Mocha Frappe</div>
-          <div class="feat-price">₹365</div>
-        </div>
-      </div>
-      <div class="feat-card reveal reveal-delay-3">
-        <img src="images/pancakes.jpg" alt="Thick Shakes" style="aspect-ratio:4/3;object-fit:cover;">
-        <div class="feat-card-body">
-          <div class="feat-tag">Thick Shakes</div>
-          <div class="feat-name">Caramel Paradise</div>
-          <div class="feat-price">₹415</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="drinks-grid">
-      <div>
-        <div class="menu-section-block reveal">
-          <div class="menu-section-heading">Iced Teas &nbsp;<span style="font-size:0.75rem;font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--cream-muted);letter-spacing:0;">Served with lemon foam</span></div>
-          <div class="menu-list">
-            <div class="menu-row"><div class="row-left"><div class="row-name">Kafir Lime & Lemongrass</div></div><div class="row-dots"></div><div class="row-price">₹325</div></div>
-            <div class="menu-row"><div class="row-left"><div class="row-name">Peach & Basil</div></div><div class="row-dots"></div><div class="row-price">₹325</div></div>
-            <div class="menu-row"><div class="row-left"><div class="row-name">Kahwa</div><div class="row-desc">Kashmiri spices, almond honey</div></div><div class="row-dots"></div><div class="row-price">₹345</div></div>
-            <div class="menu-row"><div class="row-left"><div class="row-name">Orange</div><div class="row-desc">Elderflower Syrup</div></div><div class="row-dots"></div><div class="row-price">₹345</div></div>
-            <div class="menu-row"><div class="row-left"><div class="row-name">Lavender</div></div><div class="row-dots"></div><div class="row-price">₹345</div></div>
-            <div class="menu-row"><div class="row-left"><div class="row-name">Hibiscus</div><div class="row-desc">Ginger slice, orange</div></div><div class="row-dots"></div><div class="row-price">₹365</div></div>
-          </div>
-        </div>
-
-        <div class="menu-section-block reveal">
-          <div class="menu-section-heading">Signature Mocktails</div>
-          <div class="menu-list">
-            <div class="menu-row"><div class="row-left"><div class="row-name">Mumbai Mango</div><div class="row-desc">Coconut rum, pina colada, Mango syrup</div></div><div class="row-dots"></div><div class="row-price">₹335</div></div>
-            <div class="menu-row"><div class="row-left"><div class="row-name">Apple Lime Ice</div><div class="row-desc">Apple crush, vanilla lime squash</div></div><div class="row-dots"></div><div class="row-price">₹335</div></div>
-            <div class="menu-row"><div class="row-left"><div class="row-name">V. Mojito</div><div class="row-desc">Spanish Shrubs, mint, lime, sugar syrup</div></div><div class="row-dots"></div><div class="row-price">₹335</div></div>
-            <div class="menu-row"><div class="row-left"><div class="row-name">V. Marry</div><div class="row-desc">Sun Dried Chilli Black Pepper, lime Juice, habanero bitters</div></div><div class="row-dots"></div><div class="row-price">₹335</div></div>
-            <div class="menu-row"><div class="row-left"><div class="row-name">The Refresher</div><div class="row-desc">Kiwi Mango, lemon Rose, Jalapeño, citric foam</div></div><div class="row-dots"></div><div class="row-price">₹335</div></div>
-            <div class="menu-row"><div class="row-left"><div class="row-name">Redi</div><div class="row-desc">Cranberry, Ginger, Grenadine, Pomegranate</div></div><div class="row-dots"></div><div class="row-price">₹335</div></div>
-            <div class="menu-row"><div class="row-left"><div class="row-name">Kashmiri Cooler</div><div class="row-desc">Elderflower, Rose Hibiscus, cardamom, Saffron syrup, lime juice</div></div><div class="row-dots"></div><div class="row-price">₹345</div></div>
-            <div class="menu-row"><div class="row-left"><div class="row-name">Tovelo</div><div class="row-desc">Fresh Coconut, Pineapple, Black Lime</div></div><div class="row-dots"></div><div class="row-price">₹345</div></div>
-            <div class="menu-row"><div class="row-left"><div class="row-name">V. Lagoon</div><div class="row-desc">Blue curacao, lime juice, blue lagoon sprite</div></div><div class="row-dots"></div><div class="row-price">₹335</div></div>
-            <div class="menu-row"><div class="row-left"><div class="row-name">Tropical Sunrise</div><div class="row-desc">Orange Juice, Pineapple, coke</div></div><div class="row-dots"></div><div class="row-price">₹345</div></div>
-            <div class="menu-row"><div class="row-left"><div class="row-name">Thai High</div><div class="row-desc">Sweet Lychee, Jasmine both citrus iced, Ginger Ale</div></div><div class="row-dots"></div><div class="row-price">₹345</div></div>
-            <div class="menu-row"><div class="row-left"><div class="row-name">Blueberry Mule</div><div class="row-desc">Fresh Blueberry Mint, Ginger Syrup, Top up Ginger Ale</div></div><div class="row-dots"></div><div class="row-price">₹355</div></div>
-            <div class="menu-row"><div class="row-left"><div class="row-name">Tropical C</div><div class="row-desc">Passionfruit, Pineapple Juice, Jasmine</div></div><div class="row-dots"></div><div class="row-price">₹355</div></div>
-            <div class="menu-row"><div class="row-left"><div class="row-name">Beach Break</div><div class="row-desc">Pineapple, Yuzu Essence, Coconut Cream</div></div><div class="row-dots"></div><div class="row-price">₹355</div></div>
-            <div class="menu-row"><div class="row-left"><div class="row-name">Seeds of Life</div><div class="row-desc">Fresh Passion, Lime Juice, Mint Basil Syrup</div></div><div class="row-dots"></div><div class="row-price">₹455</div></div>
-            <div class="menu-row"><div class="row-left"><div class="row-name">Melon Fantasy</div><div class="row-desc">Fresh Watermelon, Citric Juice, cranberry Syrup</div></div><div class="row-dots"></div><div class="row-price">₹485</div></div>
-            <div class="menu-row"><div class="row-left"><div class="row-name">Smooth Operator</div><div class="row-desc">Fresh Pineapple, Cucumber Mint, Yuzu Mist, Mint and Citrus Syrup, Lime and Sugar Syrup</div></div><div class="row-dots"></div><div class="row-price">₹495</div></div>
-          </div>
-        </div>
-
-        <div class="menu-section-block reveal">
-          <div class="menu-section-heading">Banjara Lemonades</div>
-          <div class="menu-list">
-            <div class="menu-row"><div class="row-left"><div class="row-name">Classic</div></div><div class="row-dots"></div><div class="row-price">₹275</div></div>
-            <div class="menu-row"><div class="row-left"><div class="row-name">Coconut</div></div><div class="row-dots"></div><div class="row-price">₹285</div></div>
-            <div class="menu-row"><div class="row-left"><div class="row-name">Rose</div></div><div class="row-dots"></div><div class="row-price">₹285</div></div>
-            <div class="menu-row"><div class="row-left"><div class="row-name">Mango</div></div><div class="row-dots"></div><div class="row-price">₹295</div></div>
-            <div class="menu-row"><div class="row-left"><div class="row-name">Berry</div></div><div class="row-dots"></div><div class="row-price">₹305</div></div>
-          </div>
-        </div>
-      </div>
-
-      <div>
-        <div class="menu-section-block reveal">
-          <div class="menu-section-heading">Indian Estate Coffee &nbsp;<span style="font-size:0.75rem;font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--cream-muted);letter-spacing:0;">Milk options: Full Cream, Skim, Oat, Almond</span></div>
-          <div class="menu-list">
-            <div class="menu-row"><div class="row-left"><div class="row-name">Americano</div></div><div class="row-dots"></div><div class="row-price">₹175</div></div>
-            <div class="menu-row"><div class="row-left"><div class="row-name">House Blend Cold Brew on Ice</div></div><div class="row-dots"></div><div class="row-price">₹185</div></div>
-            <div class="menu-row"><div class="row-left"><div class="row-name">Espresso</div></div><div class="row-dots"></div><div class="row-price">₹195</div></div>
-            <div class="menu-row"><div class="row-left"><div class="row-name">Lungo / Cappuccino / Flat White</div></div><div class="row-dots"></div><div class="row-price">₹205</div></div>
-            <div class="menu-row"><div class="row-left"><div class="row-name">Latte / Mocha</div></div><div class="row-dots"></div><div class="row-price">₹215</div></div>
-            <div class="menu-row"><div class="row-left"><div class="row-name">Espresso & Tonic with Orange Slice</div></div><div class="row-dots"></div><div class="row-price">₹215</div></div>
-            <div class="menu-row"><div class="row-left"><div class="row-name">Affogato / Condensed Milk</div></div><div class="row-dots"></div><div class="row-price">₹215</div></div>
-            <div class="menu-row"><div class="row-left"><div class="row-name">Hot Chocolate / Vanilla & Cinnamon</div></div><div class="row-dots"></div><div class="row-price">₹225</div></div>
-            <div class="menu-row"><div class="row-left"><div class="row-name">Macchiato / Cortado</div></div><div class="row-dots"></div><div class="row-price">₹205</div></div>
-            <div class="menu-row"><div class="row-left"><div class="row-name">Iced Americano</div></div><div class="row-dots"></div><div class="row-price">₹225</div></div>
-            <div class="menu-row"><div class="row-left"><div class="row-name">Iced Mocha</div></div><div class="row-dots"></div><div class="row-price">₹245</div></div>
-            <div class="menu-row"><div class="row-left"><div class="row-name">Classic Cold Coffee</div></div><div class="row-dots"></div><div class="row-price">₹299</div></div>
-            <div class="menu-row"><div class="row-left"><div class="row-name">Frappe</div><div class="row-desc">Ice Coffee and Milk</div></div><div class="row-dots"></div><div class="row-price">₹305</div></div>
-            <div class="menu-row"><div class="row-left"><div class="row-name">Mocha Frappe</div><div class="row-desc">Ice Cream, Chocolate Milk and Coffee</div></div><div class="row-dots"></div><div class="row-price">₹365</div></div>
-            <div class="menu-row"><div class="row-left"><div class="row-name">Indulgend Cold Coffee</div><div class="row-desc">Ice Cream, Coffee with Chocolate and Whipped Cream</div></div><div class="row-dots"></div><div class="row-price">₹399</div></div>
-            <div class="menu-row"><div class="row-left"><div class="row-name">Add Ons</div><div class="row-desc">Extra Espresso Shot / Flavour Syrup</div></div><div class="row-dots"></div><div class="row-price">₹75</div></div>
-          </div>
-        </div>
-
-        <div class="menu-section-block reveal">
-          <div class="menu-section-heading">Cold Pressed Juices</div>
-          <div class="menu-list">
-            <div class="menu-row"><div class="row-left"><div class="row-name">Orange / Pineapple / Watermelon / Sweet Lime</div></div><div class="row-dots"></div><div class="row-price">₹285–295</div></div>
-            <div class="menu-row"><div class="row-left"><div class="row-name">One for the Soul</div><div class="row-desc">Sugarcane, Ginger, Lime, Mint</div></div><div class="row-dots"></div><div class="row-price">₹275</div></div>
-            <div class="menu-row"><div class="row-left"><div class="row-name">Heart Beet</div><div class="row-desc">Apple, Beetroot, Carrot, Amla</div></div><div class="row-dots"></div><div class="row-price">₹305</div></div>
-            <div class="menu-row"><div class="row-left"><div class="row-name">Rainbow</div><div class="row-desc">Orange, Sweet Lime, Basil, Chilli, Stevia</div></div><div class="row-dots"></div><div class="row-price">₹305</div></div>
-            <div class="menu-row"><div class="row-left"><div class="row-name">Drink Your Greens</div><div class="row-desc">Spinach, Celery, Cucumber, Green Apple</div></div><div class="row-dots"></div><div class="row-price">₹315</div></div>
-            <div class="menu-row"><div class="row-left"><div class="row-name">Tropical Sunshine</div><div class="row-desc">Pineapple, Lemon, Ginger, Honey, Tea</div></div><div class="row-dots"></div><div class="row-price">₹325</div></div>
-          </div>
-        </div>
-
-        <div class="menu-section-block reveal">
-          <div class="menu-section-heading">Smoothies &nbsp;<span style="font-size:0.75rem;font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--cream-muted);letter-spacing:0;">Milk, Yoghurt or Coconut Milk</span></div>
-          <div class="menu-list">
-            <div class="menu-row"><div class="row-left"><div class="row-name">Monkey</div><div class="row-desc">Dark Chocolate, Peanut Butter, Banana, Dates</div></div><div class="row-dots"></div><div class="row-price">₹365</div></div>
-            <div class="menu-row"><div class="row-left"><div class="row-name">Skinny Berry</div><div class="row-desc">Strawberry, Blueberry, Raspberry, Basil</div></div><div class="row-dots"></div><div class="row-price">₹365</div></div>
-            <div class="menu-row"><div class="row-left"><div class="row-name">Green Monster</div><div class="row-desc">Green Apple, Kiwi, Spinach, Vanilla</div></div><div class="row-dots"></div><div class="row-price">₹365</div></div>
-          </div>
-        </div>
-
-        <div class="menu-section-block reveal">
-          <div class="menu-section-heading">Thick Shakes</div>
-          <div class="menu-list">
-            <div class="menu-row"><div class="row-left"><div class="row-name">Masala Chai Latte</div><div class="row-desc">Masala, Chai, Masala Tea, Whipped Caramel</div></div><div class="row-dots"></div><div class="row-price">₹355</div></div>
-            <div class="menu-row"><div class="row-left"><div class="row-name">Cinnamon Cold Coffee</div><div class="row-desc">Vanilla Ice Cream, Coffee, Caramel Cinnamon</div></div><div class="row-dots"></div><div class="row-price">₹365</div></div>
-            <div class="menu-row"><div class="row-left"><div class="row-name">S'mores Milkshake</div><div class="row-desc">Marshmallow Cream, Malt Milk, Chocolate Cream, Biscuit Crumbs</div></div><div class="row-dots"></div><div class="row-price">₹375</div></div>
-            <div class="menu-row"><div class="row-left"><div class="row-name">Old School Strawberry Milkshake</div><div class="row-desc">Strawberry Ice Cream, Strawberry Chutney, Vanilla Shake</div></div><div class="row-dots"></div><div class="row-price">₹375</div></div>
-            <div class="menu-row"><div class="row-left"><div class="row-name">Oreo Cheesecake Milkshake</div><div class="row-desc">Vanilla Ice Cream, Oreo's, Cheesecake, Whipped Caramel Cream</div></div><div class="row-dots"></div><div class="row-price">₹395</div></div>
-            <div class="menu-row"><div class="row-left"><div class="row-name">Caramel Paradise</div><div class="row-desc">Toffee Biscuits, Toffee Sauce, Toffee Crumb</div></div><div class="row-dots"></div><div class="row-price">₹415</div></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-</div><!-- /menu-wrap -->
+</div>
 
 <!-- FOOTER -->
 <footer>
@@ -814,8 +178,7 @@
   </div>
 </footer>
 
-<a href="reservation.html" id="floating-btn" class="btn-gold"><i class="far fa-calendar-alt"></i> Book Now</a>
-
+<!-- Standard page chrome scripts (loader hide, navbar scroll, mobile menu, reveal-on-scroll) -->
 <script>
   window.addEventListener('load', () => setTimeout(() => document.getElementById('loading-screen').classList.add('hidden'), 1200));
   window.addEventListener('scroll', () => document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 60));
@@ -823,18 +186,11 @@
   document.getElementById('mobile-close').addEventListener('click', () => { document.getElementById('hamburger').classList.remove('open'); document.getElementById('mobile-menu').classList.remove('open'); });
   const ro = new IntersectionObserver(e => e.forEach(x => { if(x.isIntersecting){x.target.classList.add('visible');ro.unobserve(x.target);}}), {threshold:0.08});
   document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
-
-  function switchTab(tab, btn) {
-    document.querySelectorAll('.cat-panel').forEach(p => p.classList.remove('active'));
-    document.querySelectorAll('.menu-tab').forEach(b => b.classList.remove('active'));
-    document.getElementById('tab-'+tab).classList.add('active');
-    btn.classList.add('active');
-    document.querySelectorAll('#tab-'+tab+' .reveal').forEach(el => {
-      el.classList.remove('visible');
-      setTimeout(() => el.classList.add('visible'), 60);
-    });
-    window.scrollTo({top: document.querySelector('.tab-bar').offsetTop - 100, behavior:'smooth'});
-  }
 </script>
+
+<!-- Menu render + cart UI as ES modules -->
+<script type="module" src="js/cart.js"></script>
+<script type="module" src="js/menu-page.js"></script>
+
 </body>
 </html>

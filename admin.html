@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin — Banjara</title>
+  <meta name="robots" content="noindex,nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Cinzel:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    :root { --admin-bg: #0a0a0a; --admin-card: #0f0f0f; --admin-border: rgba(201,169,110,0.15); }
+    body { background: var(--admin-bg); }
+
+    /* ---------- Login ---------- */
+    .login-wrap {
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      padding: 24px;
+    }
+    .login-card {
+      width: 100%; max-width: 420px;
+      background: var(--admin-card); border: 1px solid var(--admin-border);
+      padding: 48px 40px;
+    }
+    .login-eyebrow {
+      font-family: 'Cinzel', serif; font-size: 9px; letter-spacing: 5px;
+      color: var(--gold); text-transform: uppercase; margin-bottom: 12px;
+    }
+    .login-card h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem; color: var(--cream); margin: 0 0 8px;
+    }
+    .login-card .sub {
+      color: rgba(245,245,245,0.45); font-family: 'Cormorant Garamond', serif;
+      font-style: italic; font-size: 1rem; margin-bottom: 32px;
+    }
+    .login-card .form-group { margin-bottom: 18px; }
+    .login-card label {
+      display: block; font-family: 'Cinzel', serif;
+      font-size: 9px; letter-spacing: 3px;
+      color: rgba(245,245,245,0.5); text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .login-card input {
+      width: 100%; padding: 14px 16px;
+      background: transparent; border: 1px solid rgba(201,169,110,0.2);
+      color: var(--cream); font-family: 'Cormorant Garamond', serif;
+      font-size: 16px; outline: none;
+    }
+    .login-card input:focus { border-color: var(--gold); }
+    .login-card button[type=submit] {
+      width: 100%; padding: 14px; margin-top: 8px;
+      background: var(--gold); color: #0a0a0a; border: none; cursor: pointer;
+      font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: 4px;
+      text-transform: uppercase;
+    }
+    .login-card button[type=submit]:hover { background: #d6b97e; }
+    .login-card button[type=submit]:disabled { opacity: .5; cursor: wait; }
+    .login-error {
+      padding: 12px 14px; margin-bottom: 18px;
+      color: #e74c3c; font-size: .9rem;
+      border: 1px solid rgba(231,76,60,0.3);
+      background: rgba(231,76,60,0.06);
+    }
+
+    /* ---------- App shell ---------- */
+    .admin-header {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(10,10,10,0.92); backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--admin-border);
+      padding: 16px 32px;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 16px; flex-wrap: wrap;
+    }
+    .admin-brand {
+      font-family: 'Cinzel', serif; font-size: 13px; letter-spacing: 5px;
+      color: var(--gold);
+    }
+    .admin-brand span { color: rgba(245,245,245,0.4); font-size: 10px; margin-left: 8px; }
+    .admin-tabs { display: flex; gap: 2px; }
+    .admin-tab {
+      background: transparent; border: 1px solid transparent;
+      padding: 10px 18px; cursor: pointer;
+      color: rgba(245,245,245,0.5);
+      font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+    .admin-tab:hover { color: var(--gold); }
+    .admin-tab.active {
+      color: var(--gold); border-color: rgba(201,169,110,0.3);
+      background: rgba(201,169,110,0.05);
+    }
+    .admin-user-bar {
+      display: flex; align-items: center; gap: 14px;
+      color: rgba(245,245,245,0.5); font-size: .85rem;
+      font-family: 'Cormorant Garamond', serif;
+    }
+    .admin-user-bar #admin-user { color: var(--gold); font-style: italic; }
+    .admin-user-bar button {
+      background: transparent; border: 1px solid rgba(201,169,110,0.2);
+      color: rgba(245,245,245,0.6); cursor: pointer;
+      padding: 8px 14px; font-family: 'Cinzel', serif;
+      font-size: 9px; letter-spacing: 3px; text-transform: uppercase;
+    }
+    .admin-user-bar button:hover { border-color: var(--gold); color: var(--gold); }
+
+    .admin-main { max-width: 1320px; margin: 0 auto; padding: 32px; }
+    .admin-panel { display: block; }
+    .admin-panel[hidden] { display: none; }
+
+    /* ---------- Section header ---------- */
+    .admin-section-head {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      gap: 16px; flex-wrap: wrap;
+      margin-bottom: 24px; padding-bottom: 18px;
+      border-bottom: 1px solid var(--admin-border);
+    }
+    .admin-section-title {
+      font-family: 'Playfair Display', serif; font-size: 1.6rem; color: var(--cream);
+    }
+    .admin-section-meta {
+      font-family: 'Cormorant Garamond', serif; font-style: italic;
+      font-size: .95rem; color: rgba(245,245,245,0.45);
+      margin-top: 4px;
+    }
+    .admin-section-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+    .filter-pill {
+      background: transparent; border: 1px solid rgba(201,169,110,0.2);
+      padding: 8px 14px; cursor: pointer;
+      color: rgba(245,245,245,0.55);
+      font-family: 'Cinzel', serif; font-size: 9px; letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+    .filter-pill:hover { color: var(--gold); }
+    .filter-pill.active {
+      color: #0a0a0a; background: var(--gold); border-color: var(--gold);
+    }
+
+    /* ---------- Buttons ---------- */
+    .btn-gold-sm {
+      background: var(--gold); color: #0a0a0a; border: 1px solid var(--gold);
+      padding: 8px 14px; cursor: pointer;
+      font-family: 'Cinzel', serif; font-size: 9px; letter-spacing: 3px;
+      text-transform: uppercase;
+      display: inline-flex; align-items: center;
+    }
+    .btn-gold-sm:hover { background: #d6b97e; }
+    .btn-ghost-sm {
+      background: transparent; border: 1px solid rgba(201,169,110,0.2);
+      padding: 7px 10px; cursor: pointer;
+      color: rgba(245,245,245,0.6);
+      font-family: 'Cinzel', serif; font-size: 11px;
+    }
+    .btn-ghost-sm:hover { border-color: var(--gold); color: var(--gold); }
+    .btn-ghost-sm.danger:hover { border-color: #c43c3c; color: #c43c3c; }
+
+    /* ---------- Menu admin ---------- */
+    .admin-cats { display: flex; flex-direction: column; gap: 24px; }
+    .cat-block {
+      background: var(--admin-card); border: 1px solid var(--admin-border);
+    }
+    .cat-head {
+      padding: 16px 20px; border-bottom: 1px solid var(--admin-border);
+      display: flex; justify-content: space-between; align-items: center;
+      gap: 12px; flex-wrap: wrap;
+    }
+    .cat-name {
+      font-family: 'Playfair Display', serif; font-size: 1.2rem;
+      color: var(--cream); margin: 0;
+    }
+    .cat-meta {
+      font-family: 'Cormorant Garamond', serif; font-style: italic;
+      font-size: .85rem; color: rgba(245,245,245,0.4); margin-left: 10px;
+    }
+    .cat-actions { display: flex; align-items: center; gap: 8px; }
+    .toggle {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-family: 'Cinzel', serif; font-size: 9px; letter-spacing: 2px;
+      color: rgba(245,245,245,0.55); text-transform: uppercase;
+      cursor: pointer;
+    }
+    .toggle input[type=checkbox] { accent-color: var(--gold); }
+
+    .cat-items { padding: 4px 12px; }
+    .cat-empty {
+      padding: 24px; text-align: center;
+      color: rgba(245,245,245,0.35); font-style: italic;
+      font-family: 'Cormorant Garamond', serif;
+    }
+    .item-row {
+      display: grid;
+      grid-template-columns: 24px 1fr 130px 200px 90px;
+      gap: 12px; align-items: center;
+      padding: 12px 8px;
+      border-bottom: 1px solid rgba(201,169,110,0.05);
+    }
+    .item-row:last-child { border-bottom: none; }
+    .item-veg { display: flex; justify-content: center; }
+    .veg-mark {
+      display: inline-block; width: 11px; height: 11px;
+      border: 1px solid; position: relative;
+    }
+    .veg-mark.veg { border-color: #4caf50; }
+    .veg-mark.veg::after { content:''; position:absolute; inset:3px; background:#4caf50; border-radius:50%; }
+    .veg-mark.nonveg { border-color: #c43c3c; }
+    .veg-mark.nonveg::after { content:''; position:absolute; inset:3px; background:#c43c3c; border-radius:50%; }
+
+    .item-main { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+    .item-name, .item-desc, .item-price-input {
+      background: transparent; border: 1px solid transparent;
+      color: var(--cream); padding: 6px 8px; outline: none;
+      transition: border-color .2s;
+    }
+    .item-name { font-family: 'Playfair Display', serif; font-size: 1rem; }
+    .item-desc {
+      font-family: 'Cormorant Garamond', serif; font-style: italic;
+      font-size: .9rem; color: rgba(245,245,245,0.55);
+    }
+    .item-name:hover, .item-desc:hover, .item-price-input:hover { border-color: rgba(201,169,110,0.15); }
+    .item-name:focus, .item-desc:focus, .item-price-input:focus { border-color: var(--gold); background: rgba(201,169,110,0.03); }
+
+    .item-price { display: flex; align-items: center; gap: 4px; }
+    .item-price .rupee { color: var(--gold); font-family: 'Cinzel', serif; }
+    .item-price-input {
+      width: 100%; font-family: 'Cinzel', serif; font-size: 13px;
+      color: var(--gold); text-align: right;
+    }
+
+    .item-toggles { display: flex; gap: 12px; }
+    .item-actions { display: flex; gap: 6px; justify-content: flex-end; }
+
+    /* ---------- Tables ---------- */
+    .admin-table {
+      width: 100%; border-collapse: collapse;
+      background: var(--admin-card); border: 1px solid var(--admin-border);
+    }
+    .admin-table th {
+      text-align: left; padding: 14px 16px;
+      font-family: 'Cinzel', serif; font-size: 9px; letter-spacing: 3px;
+      color: rgba(245,245,245,0.5); text-transform: uppercase;
+      border-bottom: 1px solid var(--admin-border);
+    }
+    .admin-table td {
+      padding: 14px 16px;
+      border-bottom: 1px solid rgba(201,169,110,0.05);
+      vertical-align: top;
+    }
+    .admin-table tbody tr:hover { background: rgba(201,169,110,0.03); }
+    .admin-table tr.row-note td {
+      padding: 8px 16px 16px;
+      font-family: 'Cormorant Garamond', serif; font-style: italic;
+      font-size: .9rem; color: rgba(245,245,245,0.5);
+      border-bottom: 1px solid rgba(201,169,110,0.05);
+    }
+    .admin-table tr.row-note td strong { color: var(--gold); font-style: normal; font-weight: normal; letter-spacing: 1px; }
+    .cell-strong { color: var(--cream); font-family: 'Playfair Display', serif; font-size: 1rem; }
+    .cell-sub    { color: rgba(245,245,245,0.45); font-size: .85rem; margin-top: 3px; font-family: 'Cormorant Garamond', serif; }
+    .cell-tag {
+      display: inline-block; margin-top: 4px;
+      padding: 2px 8px; font-family: 'Cinzel', serif; font-size: 8px;
+      letter-spacing: 2px; text-transform: uppercase;
+      border: 1px solid rgba(201,169,110,0.25); color: var(--gold);
+    }
+    .cell-tag.tag-ok   { color: #4caf50; border-color: rgba(76,175,80,0.4); }
+    .cell-tag.tag-warn { color: #e8a93a; border-color: rgba(232,169,58,0.4); }
+    .cell-tag.tag-err  { color: #c43c3c; border-color: rgba(196,60,60,0.4); }
+
+    .status-select {
+      background: transparent; border: 1px solid rgba(201,169,110,0.25);
+      color: var(--cream); padding: 6px 10px;
+      font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: 1px;
+      text-transform: uppercase; cursor: pointer;
+    }
+    .status-select option { background: var(--admin-card); color: var(--cream); }
+    .status-select:focus { border-color: var(--gold); outline: none; }
+
+    /* ---------- Loading & empty ---------- */
+    .admin-loading, .admin-empty {
+      padding: 60px 20px; text-align: center;
+      font-family: 'Cormorant Garamond', serif; font-style: italic;
+      font-size: 1.05rem; color: rgba(245,245,245,0.45);
+      background: var(--admin-card); border: 1px solid var(--admin-border);
+    }
+    .admin-loading.error { color: #e74c3c; font-style: normal; }
+
+    /* ---------- Modal ---------- */
+    #admin-modal {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.7);
+      z-index: 100; display: flex; align-items: center; justify-content: center;
+      padding: 24px; backdrop-filter: blur(6px);
+    }
+    #admin-modal[hidden] { display: none; }
+    .modal-card {
+      width: 100%; max-width: 540px; max-height: 80vh; overflow-y: auto;
+      background: var(--admin-card); border: 1px solid var(--admin-border);
+    }
+    .modal-head {
+      padding: 24px 28px; border-bottom: 1px solid var(--admin-border);
+      display: flex; justify-content: space-between; align-items: flex-start;
+    }
+    .modal-eyebrow {
+      font-family: 'Cinzel', serif; font-size: 9px; letter-spacing: 4px;
+      color: var(--gold); text-transform: uppercase; margin-bottom: 6px;
+    }
+    .modal-title {
+      font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--cream);
+    }
+    .modal-close {
+      background: none; border: none; color: rgba(245,245,245,0.5);
+      font-size: 24px; cursor: pointer; line-height: 1; padding: 0;
+    }
+    .modal-close:hover { color: var(--gold); }
+    .modal-body { padding: 24px 28px; }
+    .kv {
+      display: flex; justify-content: space-between; gap: 16px;
+      padding: 8px 0; border-bottom: 1px solid rgba(201,169,110,0.06);
+      align-items: baseline;
+    }
+    .kv:last-child { border-bottom: none; }
+    .kv .k {
+      font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: 2px;
+      color: rgba(245,245,245,0.45); text-transform: uppercase;
+    }
+    .kv .v {
+      color: var(--cream); font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem; text-align: right; max-width: 60%;
+    }
+
+    /* ---------- Toast ---------- */
+    #admin-toast {
+      position: fixed; bottom: 30px; right: 30px; z-index: 200;
+      padding: 12px 20px;
+      background: var(--admin-card);
+      border: 1px solid var(--gold); color: var(--cream);
+      font-family: 'Cormorant Garamond', serif; font-size: 14px;
+      opacity: 0; transform: translateY(10px); transition: all .25s ease;
+      pointer-events: none;
+    }
+    #admin-toast.show { opacity: 1; transform: translateY(0); }
+    #admin-toast[data-kind=err] { border-color: #c43c3c; }
+
+    /* ---------- Mobile ---------- */
+    @media (max-width: 900px) {
+      .admin-header { padding: 14px 18px; }
+      .admin-main { padding: 18px; }
+      .admin-tabs { width: 100%; order: 3; overflow-x: auto; }
+      .admin-tab { font-size: 9px; padding: 8px 12px; flex-shrink: 0; }
+      .item-row {
+        grid-template-columns: 24px 1fr;
+        row-gap: 8px;
+      }
+      .item-price, .item-toggles, .item-actions {
+        grid-column: 1 / 3;
+      }
+      .item-toggles { padding-left: 36px; }
+      .item-actions { padding-left: 36px; }
+      .admin-table { font-size: .9rem; }
+      .admin-table th, .admin-table td { padding: 10px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Login screen (default visible until session check completes) -->
+<section id="admin-login" class="login-wrap">
+  <div class="login-card">
+    <div class="login-eyebrow">Banjara · Admin</div>
+    <h1>Sign in</h1>
+    <div class="sub">For owner &amp; floor staff. Customer-facing pages live at <a href="/" style="color:var(--gold);text-decoration:underline;">banjara.in</a>.</div>
+
+    <form>
+      <div class="login-error" id="login-error" hidden></div>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" name="email" required autocomplete="email" placeholder="owner@banjara.in">
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" name="password" required autocomplete="current-password">
+      </div>
+      <button type="submit"><i class="fas fa-lock"></i> &nbsp;Sign in</button>
+    </form>
+  </div>
+</section>
+
+<!-- Authenticated app (hidden until login) -->
+<section id="admin-app" hidden>
+  <header class="admin-header">
+    <div class="admin-brand">BANJARA <span>Admin Console</span></div>
+    <nav class="admin-tabs">
+      <button class="admin-tab active" data-tab="menu"><i class="fas fa-utensils"></i> &nbsp;Menu</button>
+      <button class="admin-tab"        data-tab="reservations"><i class="far fa-calendar-alt"></i> &nbsp;Reservations</button>
+      <button class="admin-tab"        data-tab="orders"><i class="fas fa-shopping-bag"></i> &nbsp;Pre-orders</button>
+    </nav>
+    <div class="admin-user-bar">
+      <span id="admin-user">—</span>
+      <button id="admin-logout"><i class="fas fa-sign-out-alt"></i> &nbsp;Sign out</button>
+    </div>
+  </header>
+
+  <main class="admin-main">
+    <section class="admin-panel" data-panel="menu"         id="panel-menu"></section>
+    <section class="admin-panel" data-panel="reservations" id="panel-reservations" hidden></section>
+    <section class="admin-panel" data-panel="orders"       id="panel-orders" hidden></section>
+  </main>
+</section>
+
+<div id="admin-modal" hidden></div>
+<div id="admin-toast"></div>
+
+<script type="module" src="js/admin-page.js"></script>
+</body>
+</html>

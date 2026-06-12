@@ -1,0 +1,11 @@
+content = open('admin.html', encoding='utf-8').read()
+content = content.replace('id="admin-app" hidden', 'id="admin-app" style="display:none"')
+open('admin.html', 'w', encoding='utf-8').write(content)
+
+content = open('js/admin-page.js', encoding='utf-8').read()
+content = content.replace('$("#admin-login").hidden = true;', '$("#admin-login").style.display = "none";')
+content = content.replace('$("#admin-login").hidden = false;', '$("#admin-login").style.display = "flex";')
+content = content.replace('$("#admin-app").hidden = false;', '$("#admin-app").style.display = "";')
+content = content.replace('$("#admin-app").hidden = true;', '$("#admin-app").style.display = "none";')
+open('js/admin-page.js', 'w', encoding='utf-8').write(content)
+print('Done')

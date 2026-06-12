@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pre-order — Banjara Gourmet Dining</title>
+  <meta name="description" content="Pre-order from Banjara — pickup at your time, or lock your table with a UPI prepayment. Zero wait when you arrive.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Cinzel:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    /* Checkout layout */
+    .check-wrap {
+      max-width: 880px; margin: 0 auto;
+      padding: 120px 60px 100px;
+      min-height: 70vh;
+    }
+    .check-view[hidden] { display: none; }
+
+    .check-step-label {
+      display: inline-flex; gap: 10px; align-items: center;
+      font-family: 'Cinzel', serif; font-size: 9px; letter-spacing: 4px;
+      color: var(--gold); text-transform: uppercase; margin-bottom: 18px;
+    }
+    .check-h1 {
+      font-size: clamp(2rem, 4.5vw, 3.6rem);
+      color: var(--cream); line-height: 1.15;
+      font-weight: 400; margin: 0;
+    }
+    .check-h1 em {
+      font-style: italic; font-family: 'Cormorant Garamond', serif; color: var(--gold);
+    }
+
+    /* Cart lines */
+    .check-lines { margin: 20px 0 40px; }
+    .check-line {
+      display: grid; grid-template-columns: 1fr auto auto;
+      column-gap: 24px; row-gap: 8px;
+      padding: 18px 0; border-bottom: 1px solid rgba(201,169,110,0.08);
+      align-items: center;
+    }
+    .check-line:last-child { border-bottom: none; }
+    .check-line-main { grid-column: 1 / 2; }
+    .check-line-name {
+      font-family: 'Playfair Display', serif; font-size: 1.15rem; color: var(--cream);
+      line-height: 1.3;
+    }
+    .check-line-price {
+      font-size: .85rem; color: rgba(245,245,245,0.4);
+      font-family: 'Cinzel', serif; letter-spacing: 1px; margin-top: 4px;
+    }
+    .check-line-qty {
+      display: inline-flex; align-items: center; gap: 8px;
+      grid-column: 2 / 3;
+    }
+    .check-line-qty button {
+      width: 32px; height: 32px; background: transparent;
+      border: 1px solid rgba(201,169,110,0.3); color: var(--cream);
+      cursor: pointer; font-size: 14px;
+    }
+    .check-line-qty button:hover { background: rgba(201,169,110,0.08); }
+    .check-line-qty .n {
+      min-width: 28px; text-align: center;
+      font-family: 'Cinzel', serif; font-size: 13px;
+    }
+    .check-line-qty .check-rm {
+      background: none; border: none; color: rgba(245,245,245,0.4);
+      cursor: pointer; font-size: 10px; letter-spacing: 2px;
+      font-family: 'Cinzel', serif; padding: 0 0 0 14px;
+      text-transform: uppercase; width: auto; height: auto;
+    }
+    .check-line-qty .check-rm:hover { color: #c43c3c; background: transparent; }
+    .check-line-total {
+      grid-column: 3 / 4;
+      font-family: 'Cinzel', serif; font-size: 13px;
+      color: var(--gold); letter-spacing: 1px;
+      text-align: right;
+    }
+
+    /* Veg dot */
+    .veg-mark {
+      display: inline-block; width: 11px; height: 11px;
+      border: 1px solid; vertical-align: middle; margin-right: 8px; position: relative;
+    }
+    .veg-mark.veg { border-color: #4caf50; }
+    .veg-mark.veg::after {
+      content: ''; position: absolute; inset: 3px;
+      background: #4caf50; border-radius: 50%;
+    }
+    .veg-mark.nonveg { border-color: #c43c3c; }
+    .veg-mark.nonveg::after {
+      content: ''; position: absolute; inset: 3px;
+      background: #c43c3c; border-radius: 50%;
+    }
+
+    /* Summary block */
+    .check-summary {
+      background: rgba(201,169,110,0.04);
+      border: 1px solid rgba(201,169,110,0.15);
+      padding: 24px 28px;
+      margin-bottom: 40px;
+    }
+    .check-summary-row {
+      display: flex; justify-content: space-between;
+      font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: 3px;
+      color: rgba(245,245,245,0.6); text-transform: uppercase;
+      padding: 6px 0;
+    }
+    .check-summary-row .v { color: var(--cream); }
+    .check-summary-row.total {
+      margin-top: 6px; padding-top: 14px;
+      border-top: 1px solid rgba(201,169,110,0.15);
+      font-size: 13px; color: var(--gold);
+    }
+    .check-summary-row.total .v { color: var(--gold); font-weight: 700; }
+    .check-note {
+      margin-top: 14px;
+      font-family: 'Cormorant Garamond', serif; font-style: italic;
+      font-size: .9rem; color: rgba(245,245,245,0.45);
+      line-height: 1.6;
+    }
+
+    /* Mode selector */
+    .check-mode { margin-bottom: 40px; }
+    .check-mode-label {
+      font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: 4px;
+      color: var(--gold); text-transform: uppercase; margin-bottom: 18px;
+    }
+    .check-mode-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+    }
+    .check-mode-card {
+      position: relative; cursor: pointer;
+      border: 1px solid rgba(201,169,110,0.25);
+      padding: 24px;
+      transition: all .25s ease;
+      display: block;
+    }
+    .check-mode-card:hover { border-color: var(--gold); background: rgba(201,169,110,0.04); }
+    .check-mode-card.selected {
+      border-color: var(--gold);
+      background: rgba(201,169,110,0.08);
+    }
+    .check-mode-card.selected::after {
+      content: '✓'; position: absolute; top: 14px; right: 16px;
+      color: var(--gold); font-family: 'Cinzel', serif; font-weight: 700;
+    }
+    .check-mode-card input[type=radio] {
+      position: absolute; opacity: 0; pointer-events: none;
+    }
+    .check-mode-card-inner i {
+      color: var(--gold); font-size: 22px; display: block; margin-bottom: 10px;
+    }
+    .check-mode-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem; color: var(--cream); margin-bottom: 6px;
+    }
+    .check-mode-sub {
+      font-size: .9rem; color: rgba(245,245,245,0.5); line-height: 1.5;
+      font-family: 'Cormorant Garamond', serif;
+    }
+
+    /* Form */
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-group { margin-bottom: 22px; }
+    .form-label {
+      display: block; font-family: 'Cinzel', serif;
+      font-size: 9px; letter-spacing: 3px;
+      color: rgba(245,245,245,0.5); text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .form-control {
+      width: 100%; padding: 14px 16px;
+      background: transparent; border: 1px solid rgba(201,169,110,0.2);
+      color: var(--cream); font-family: 'Cormorant Garamond', serif;
+      font-size: 17px; outline: none;
+      transition: border-color .25s, background .25s;
+    }
+    .form-control:focus {
+      border-color: var(--gold); background: rgba(201,169,110,0.03);
+    }
+    .form-control::placeholder { color: rgba(245,245,245,0.22); }
+    .form-hint {
+      margin-top: 6px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: .85rem; color: rgba(245,245,245,0.35); font-style: italic;
+    }
+
+    .check-mode-summary {
+      display: flex; align-items: center; gap: 10px;
+      padding: 14px 18px; margin-bottom: 28px;
+      border: 1px solid rgba(201,169,110,0.2);
+      background: rgba(201,169,110,0.04);
+      color: var(--cream); font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+    }
+    .check-mode-summary i { color: var(--gold); }
+    .check-mode-summary a {
+      color: var(--gold); text-decoration: underline;
+      font-style: italic; margin-left: auto;
+    }
+
+    .check-pay-summary {
+      background: rgba(201,169,110,0.04);
+      border: 1px solid rgba(201,169,110,0.15);
+      padding: 22px 26px; margin: 8px 0 24px;
+    }
+
+    .check-error {
+      padding: 14px 18px; margin-bottom: 16px;
+      color: #e74c3c; font-size: .9rem;
+      border: 1px solid rgba(231,76,60,0.3);
+      background: rgba(231,76,60,0.06);
+      display: flex; align-items: center; gap: 10px;
+    }
+
+    /* Action bar */
+    .check-actions {
+      display: flex; justify-content: space-between; align-items: center;
+      gap: 16px; margin-top: 12px;
+    }
+    .btn-ghost {
+      display: inline-flex; align-items: center;
+      padding: 14px 22px;
+      background: transparent; border: 1px solid rgba(201,169,110,0.3);
+      color: rgba(245,245,245,0.7);
+      font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: 4px;
+      text-decoration: none; text-transform: uppercase;
+      cursor: pointer;
+      transition: all .25s ease;
+    }
+    .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* Empty state */
+    .check-empty {
+      text-align: center; padding: 60px 20px;
+    }
+
+    /* Done view */
+    .check-done-icon {
+      width: 72px; height: 72px; border-radius: 50%;
+      background: rgba(76,175,80,0.12);
+      border: 1px solid #4caf50;
+      color: #4caf50; font-size: 28px;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 24px;
+    }
+    .check-done-card {
+      max-width: 480px; margin: 32px auto;
+      background: rgba(201,169,110,0.04);
+      border: 1px solid rgba(201,169,110,0.18);
+      padding: 24px 28px;
+    }
+    .check-done-card .row {
+      display: flex; justify-content: space-between; gap: 14px;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(201,169,110,0.08);
+    }
+    .check-done-card .row:last-child { border-bottom: none; }
+    .check-done-card .row .k {
+      color: rgba(245,245,245,0.4); font-size: 11px; font-family: 'Cinzel', serif;
+      letter-spacing: 3px; text-transform: uppercase;
+    }
+    .check-done-card .row .v {
+      color: var(--cream); font-family: 'Playfair Display', serif;
+      font-size: 1rem; text-align: right; max-width: 60%;
+    }
+
+    @media (max-width: 720px) {
+      .check-wrap { padding: 100px 24px 80px; }
+      .form-row { grid-template-columns: 1fr; }
+      .check-mode-grid { grid-template-columns: 1fr; }
+      .check-line {
+        grid-template-columns: 1fr;
+        row-gap: 12px;
+      }
+      .check-line-qty { grid-column: 1 / 2; }
+      .check-line-total { grid-column: 1 / 2; text-align: left; }
+      .check-actions { flex-direction: column; }
+      .check-actions > * { width: 100%; justify-content: center; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="loading-screen">
+  <div class="loader-wrapper"><div class="loader-ring"></div><div class="loader-inner"></div></div>
+  <div class="font-cinzel gold-text" style="font-size:26px;letter-spacing:10px;">Banjara</div>
+  <div style="color:rgba(201,169,110,0.5);font-size:13px;letter-spacing:6px;text-transform:uppercase;margin-top:6px;font-family:'Cormorant Garamond',serif;">Pre-order</div>
+</div>
+
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="index.html" style="text-decoration:none;">
+      <div class="nav-logo-name">Banjara</div>
+      <div class="nav-logo-sub">Gourmet Dining</div>
+    </a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="about.html" class="nav-link">About</a>
+      <a href="menu.html" class="nav-link">Menu</a>
+      <a href="gallery.html" class="nav-link">Gallery</a>
+      <a href="contact.html" class="nav-link">Contact</a>
+      <a href="reservation.html" class="btn-gold" style="margin-left:8px;">Reserve</a>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div id="mobile-menu">
+  <button class="mobile-close" id="mobile-close"><i class="fas fa-times"></i></button>
+  <div class="font-cinzel gold-text" style="font-size:24px;letter-spacing:8px;margin-bottom:16px;">Banjara</div>
+  <div class="divider" style="width:160px;margin:0 auto 24px;"><span class="divider-icon">◆</span></div>
+  <a href="index.html" class="mobile-nav-link">Home</a>
+  <a href="about.html" class="mobile-nav-link">About</a>
+  <a href="menu.html" class="mobile-nav-link">Menu</a>
+  <a href="gallery.html" class="mobile-nav-link">Gallery</a>
+  <a href="contact.html" class="mobile-nav-link">Contact</a>
+  <a href="reservation.html" class="btn-gold" style="margin-top:8px;">Reserve a Table</a>
+</div>
+
+<main class="check-wrap">
+  <section id="view-cart"    class="check-view"></section>
+  <section id="view-form"    class="check-view" hidden></section>
+  <section id="view-paying"  class="check-view" hidden></section>
+  <section id="view-done"    class="check-view" hidden></section>
+</main>
+
+<footer style="background: var(--deep); border-top: 1px solid var(--border); padding: 28px 60px;">
+  <div style="max-width: 1320px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+    <div style="color: rgba(245,245,245,0.25); font-size: 0.85rem;">© 2024 Banjara Gourmet Dining. All rights reserved.</div>
+    <div class="font-cinzel" style="font-size: 8px; letter-spacing: 4px; color: rgba(201,169,110,0.35); text-transform: uppercase;">Pre-order · Pickup · Table</div>
+  </div>
+</footer>
+
+<script>
+  window.addEventListener('load', () => setTimeout(() => document.getElementById('loading-screen').classList.add('hidden'), 800));
+  window.addEventListener('scroll', () => document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 60));
+  document.getElementById('hamburger').addEventListener('click', function() { this.classList.toggle('open'); document.getElementById('mobile-menu').classList.add('open'); });
+  document.getElementById('mobile-close').addEventListener('click', () => { document.getElementById('hamburger').classList.remove('open'); document.getElementById('mobile-menu').classList.remove('open'); });
+</script>
+
+<script type="module" src="js/preorder-page.js"></script>
+</body>
+</html>

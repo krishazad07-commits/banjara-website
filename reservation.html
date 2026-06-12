@@ -196,6 +196,37 @@
       .occasion-grid { grid-template-columns: repeat(2, 1fr); }
       .res-form-panel { padding: 48px 20px; }
     }
+
+    /* Pre-order upsell */
+    .res-upsell {
+      display: flex; align-items: center; gap: 16px;
+      padding: 18px 22px; margin-bottom: 40px;
+      border: 1px solid rgba(201,169,110,0.25);
+      background: linear-gradient(135deg, rgba(201,169,110,0.06), rgba(201,169,110,0.02));
+      color: var(--cream); text-decoration: none;
+      transition: all .25s ease;
+    }
+    .res-upsell:hover {
+      border-color: var(--gold);
+      background: rgba(201,169,110,0.08);
+      transform: translateY(-1px);
+    }
+    .res-upsell-icon {
+      flex-shrink: 0; width: 44px; height: 44px;
+      border: 1px solid var(--gold); color: var(--gold);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px;
+    }
+    .res-upsell-body { flex: 1; }
+    .res-upsell-title {
+      font-family: 'Playfair Display', serif; font-size: 1.05rem;
+      color: var(--cream); line-height: 1.3;
+    }
+    .res-upsell-sub {
+      font-family: 'Cormorant Garamond', serif; font-style: italic;
+      font-size: .9rem; color: rgba(245,245,245,0.5); margin-top: 4px;
+    }
+    .res-upsell-arrow { color: var(--gold); font-size: 14px; }
   </style>
 </head>
 <body>
@@ -300,7 +331,7 @@
   <div class="res-form-panel">
 
     <!-- Step indicator -->
-    <div class="steps" style="margin-bottom: 48px;">
+    <div class="steps" style="margin-bottom: 32px;">
       <div class="step active" id="step1-indicator">
         <div class="step-circle">1</div>
         <div class="step-label">Details</div>
@@ -315,8 +346,18 @@
       </div>
     </div>
 
+    <!-- Upsell — pre-order the meal with the table -->
+    <a href="pre-order.html" class="res-upsell">
+      <div class="res-upsell-icon"><i class="fas fa-utensils"></i></div>
+      <div class="res-upsell-body">
+        <div class="res-upsell-title">Lock the meal too — zero wait</div>
+        <div class="res-upsell-sub">Pre-order from the menu &amp; secure your table with UPI prepayment</div>
+      </div>
+      <div class="res-upsell-arrow"><i class="fas fa-arrow-right"></i></div>
+    </a>
+
     <!-- FORM -->
-    <form id="reservation-form" onsubmit="submitForm(event)" novalidate>
+    <form id="reservation-form" novalidate>
       <div class="form-grid">
 
         <!-- Personal Details -->
@@ -507,46 +548,104 @@
     selectedOccasion = btn.textContent.trim();
   }
 
-  function submitForm(e) {
-    e.preventDefault();
-    const fname = document.getElementById('fname').value.trim();
-    const lname = document.getElementById('lname').value.trim();
-    const email = document.getElementById('email').value.trim();
-    const phone = document.getElementById('phone').value.trim();
-    const date  = document.getElementById('res-date').value;
-    const time  = document.getElementById('res-time').value;
-    const guests = document.getElementById('guests').value;
+  // Expose selectOccasion to inline onclick handlers (these still live in the HTML)
+  window.selectOccasion = selectOccasion;
+  // The form's onsubmit is wired below from the module script
+  window.__getOccasion = () => selectedOccasion;
+</script>
 
-    if (!fname || !lname || !email || !phone || !date || !time || !guests) {
-      document.getElementById('form-error').style.display = 'block';
+<script type="module">
+  // Real Supabase submission.
+  import { supabase } from './js/supabase-client.js';
+
+  const form = document.getElementById('reservation-form');
+  const errBox = document.getElementById('form-error');
+  const submitBtn = form.querySelector('button[type="submit"]');
+  const originalLabel = submitBtn.innerHTML;
+
+  function showError(msg) {
+    errBox.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${msg}`;
+    errBox.style.display = 'block';
+  }
+  function hideError() { errBox.style.display = 'none'; }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const fname  = document.getElementById('fname').value.trim();
+    const lname  = document.getElementById('lname').value.trim();
+    const email  = document.getElementById('email').value.trim();
+    const phone  = document.getElementById('phone').value.trim();
+    const date   = document.getElementById('res-date').value;
+    const time   = document.getElementById('res-time').value;
+    const guestsRaw = document.getElementById('guests').value;
+    const seating  = document.getElementById('seating').value || '';
+    const requests = document.getElementById('requests').value.trim();
+    const occasion = (window.__getOccasion && window.__getOccasion()) || '';
+
+    if (!fname || !lname || !email || !phone || !date || !time || !guestsRaw) {
+      showError('Please fill in all required fields.');
       return;
     }
-    document.getElementById('form-error').style.display = 'none';
+    hideError();
 
-    // Update confirmation
-    document.getElementById('confirm-name').textContent = fname;
-    const summaryEl = document.getElementById('summary-content');
-    const seating = document.getElementById('seating').value || 'No preference';
-    const requests = document.getElementById('requests').value.trim();
-    summaryEl.innerHTML = `
-      <div style="display:flex;justify-content:space-between;"><span>Guest</span><span style="color:var(--cream)">${fname} ${lname}</span></div>
-      <div style="display:flex;justify-content:space-between;"><span>Date</span><span style="color:var(--cream)">${new Date(date).toDateString()}</span></div>
-      <div style="display:flex;justify-content:space-between;"><span>Time</span><span style="color:var(--cream)">${time}</span></div>
-      <div style="display:flex;justify-content:space-between;"><span>Guests</span><span style="color:var(--cream)">${guests}</span></div>
-      <div style="display:flex;justify-content:space-between;"><span>Seating</span><span style="color:var(--cream)">${seating}</span></div>
-      ${selectedOccasion ? `<div style="display:flex;justify-content:space-between;"><span>Occasion</span><span style="color:var(--cream)">${selectedOccasion}</span></div>` : ''}
-      ${requests ? `<div style="display:flex;justify-content:space-between;"><span>Requests</span><span style="color:var(--cream);max-width:180px;text-align:right">${requests}</span></div>` : ''}
-    `;
+    // Guests can be "1 Guest" / "2 Guests" / "10+ Guests (Contact us)".
+    // Special-case the 10+ ask — direct the customer to the phone number.
+    if (guestsRaw.includes('+')) {
+      showError('For groups of 11 or more, please call +91 98765 43210 to arrange.');
+      return;
+    }
+    const guests = parseInt(guestsRaw, 10) || 1;
 
-    // Show confirmation
-    document.getElementById('reservation-form').style.display = 'none';
-    document.getElementById('confirmation-box').classList.add('visible');
-    document.querySelector('.steps').style.display = 'none';
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> &nbsp; Securing your table…';
 
-    // Update step indicators
-    document.querySelectorAll('.step').forEach(s => s.classList.add('done'));
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
+    try {
+      const { data, error } = await supabase
+        .from('reservations')
+        .insert({
+          fname, lname, email, phone,
+          res_date: date,
+          res_time: time,
+          guests,
+          seating:  seating  || null,
+          occasion: occasion || null,
+          requests: requests || null,
+          status: 'pending',
+        })
+        .select('id')
+        .single();
+      if (error) throw error;
+
+      // Populate confirmation summary
+      document.getElementById('confirm-name').textContent = fname;
+      document.getElementById('summary-content').innerHTML = `
+        <div style="display:flex;justify-content:space-between;"><span>Guest</span><span style="color:var(--cream)">${fname} ${lname}</span></div>
+        <div style="display:flex;justify-content:space-between;"><span>Date</span><span style="color:var(--cream)">${new Date(date).toDateString()}</span></div>
+        <div style="display:flex;justify-content:space-between;"><span>Time</span><span style="color:var(--cream)">${time}</span></div>
+        <div style="display:flex;justify-content:space-between;"><span>Guests</span><span style="color:var(--cream)">${guests}</span></div>
+        <div style="display:flex;justify-content:space-between;"><span>Seating</span><span style="color:var(--cream)">${seating || 'No preference'}</span></div>
+        ${occasion ? `<div style="display:flex;justify-content:space-between;"><span>Occasion</span><span style="color:var(--cream)">${occasion}</span></div>` : ''}
+        ${requests ? `<div style="display:flex;justify-content:space-between;"><span>Requests</span><span style="color:var(--cream);max-width:180px;text-align:right">${requests}</span></div>` : ''}
+        <div style="display:flex;justify-content:space-between;margin-top:14px;padding-top:14px;border-top:1px solid rgba(201,169,110,0.12);"><span>Reference</span><span style="color:var(--cream);font-family:monospace;font-size:0.8rem;">${data.id.slice(0,8)}</span></div>
+      `;
+
+      // Swap views
+      form.style.display = 'none';
+      document.getElementById('confirmation-box').classList.add('visible');
+      document.querySelector('.steps').style.display = 'none';
+      document.querySelectorAll('.step').forEach(s => s.classList.add('done'));
+      // Hide the upsell too — they've already booked
+      const upsell = document.querySelector('.res-upsell');
+      if (upsell) upsell.style.display = 'none';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } catch (err) {
+      console.error(err);
+      showError('We could not save your reservation just now. Please try again, or call us at +91 98765 43210.');
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = originalLabel;
+    }
+  });
 </script>
 </body>
 </html>

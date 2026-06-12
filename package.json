@@ -1,0 +1,14 @@
+{
+  "name": "banjara-website",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Banjara Gourmet Dining — full-house build (menu + reservations + pre-orders + admin)",
+  "scripts": {
+    "dev": "python3 -m http.server 8080",
+    "seed": "python3 scripts/extract_menu.py"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

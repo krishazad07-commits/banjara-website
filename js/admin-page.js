@@ -57,13 +57,13 @@ async function checkSession() {
 }
 
 function showLogin() {
-  $("#admin-login").hidden = false;
-  $("#admin-app").hidden = true;
+  $("#admin-login").style.display = "flex";
+  $("#admin-app").style.display = "none";
 }
 
 function showApp(user) {
-  $("#admin-login").hidden = true;
-  $("#admin-app").hidden = false;
+  $("#admin-login").style.display = "none";
+  $("#admin-app").style.display = "";
   $("#admin-user").textContent = user.email;
   // Default to the menu tab
   switchTab("menu");
